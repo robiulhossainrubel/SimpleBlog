@@ -17,6 +17,9 @@ namespace SimpleBlog.Infrastructure.DI
             });
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ILikeDisLikeService, LikeDisLikeService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             return services;
         }
