@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using SimpleBlog.Domain.Entities;
+using SimpleBlog.Infrastructure.Data;
+using SimpleBlog.Infrastructure.DI;
+
 namespace SimpleBlog.Presentation
 {
     public class Program
@@ -8,6 +13,16 @@ namespace SimpleBlog.Presentation
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddInfrastructureService(builder.Configuration);
+            builder.Services.AddIdentity<AppUser, AppUserRole>(options => options.SignIn.RequireConfirmedAccount = false).AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<BlogDbContext>();
+
+            builder.Services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = "/Auth/Auth/SignIn";
+            });
+
+
 
             var app = builder.Build();
 

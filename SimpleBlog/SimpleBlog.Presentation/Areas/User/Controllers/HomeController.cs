@@ -1,6 +1,7 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimpleBlog.Presentation.Models;
+using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
@@ -17,7 +18,6 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         {
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();

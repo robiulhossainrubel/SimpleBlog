@@ -1,4 +1,4 @@
-namespace SimpleBlog.Presentation.Models
+namespace SimpleBlog.Domain.Entities
 {
     public class ErrorViewModel
     {
