@@ -12,8 +12,8 @@
                 <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.Post.CreatedAt).ToString("mm")) mins ago</small></p>
             </div>
             <div class="card-body">
-                <a asp-controller="Post" asp-action="Like" asp-route-id="@Model.Post.LikeDisLikeId" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@Model.Post.LikeDisLike.Like)</a>
-                <a asp-controller="Post" asp-action="DisLike" asp-route-id="@Model.Post.LikeDisLikeId" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@Model.Post.LikeDisLike.DisLike)</a>
+                <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="1" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@Model.Post.Reaction.Where(x => x.ReactType == ReactionType.Like).Count())</a>
+                <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="2" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@Model.Post.Reaction.Where(x => x.ReactType == ReactionType.DisLike).Count())</a>
             </div>
         </div>
     </div>

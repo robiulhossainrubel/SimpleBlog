@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -7,7 +6,7 @@ using SimpleBlog.Presentation.ViewModel;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
-    public class PostController(IPostService postService, ILikeDisLikeService likeDisLikeService, ICommentService commentService, UserManager<AppUser> userManager) : Controller
+    public class PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager) : Controller
     {
         public IActionResult Create()
         {
@@ -16,11 +15,9 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         [HttpPost]
         public IActionResult Create(Post post)
         {
-            post.LikeDisLikeId = likeDisLikeService.Create(new LikeDisLike());
-
             var userId = userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
             post.AppUserId = userId;
-            post.Status = Status.Pending;
+            post.PostStatus = Status.Pending;
             post.CreatedAt = DateTime.Now;
 
 
@@ -49,18 +46,34 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             postVM.Comment = new Comment();
             return View(postVM);
         }
-        public IActionResult Like(int id)
+        public IActionResult React(int postId, int reactId)
         {
-            var ld = likeDisLikeService.Get(id);
-            ld.Like++;
-            likeDisLikeService.Update(ld);
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult DisLike(int id)
-        {
-            var ld = likeDisLikeService.Get(id);
-            ld.DisLike++;
-            likeDisLikeService.Update(ld);
+            var userId = userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+            var reaction = reactionService.GetByPostIdAndUserId(postId, userId);
+
+            if (reaction == null)
+            {
+                var react = new Reaction
+                {
+                    ReactType = (ReactionType)reactId,
+                    PostId = postId,
+                    AppUserId = userId
+                };
+
+                reactionService.Create(react);
+            }
+            else
+            {
+                if (reaction.ReactType == (ReactionType)reactId)
+                {
+                    reactionService.Delete(postId, userId);
+                }
+                else
+                {
+                    reaction.ReactType = (ReactionType)reactId;
+                    reactionService.Update(reaction);
+                }
+            }
             return RedirectToAction("Index", "Home");
         }
     }

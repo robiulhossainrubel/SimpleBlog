@@ -11,7 +11,7 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            var posts = postService.GetAll().Where(x => x.Status != Status.Approve).OrderByDescending(x => x.CreatedAt).ToList();
+            var posts = postService.GetAll().Where(x => x.PostStatus != Status.Approve).OrderByDescending(x => x.CreatedAt).ToList();
             return View(posts);
         }
         public IActionResult Details(int id)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleBlog.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using SimpleBlog.Infrastructure.Data;
 namespace SimpleBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250417092224_addReactionTable")]
+    partial class addReactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,6 +274,25 @@ namespace SimpleBlog.Infrastructure.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("SimpleBlog.Domain.Entities.LikeDisLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DisLike")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Like")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LikeDisLikes");
+                });
+
             modelBuilder.Entity("SimpleBlog.Domain.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -289,7 +311,10 @@ namespace SimpleBlog.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostStatus")
+                    b.Property<int>("LikeDisLikeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -299,6 +324,8 @@ namespace SimpleBlog.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("LikeDisLikeId");
 
                     b.ToTable("Posts");
                 });
@@ -314,10 +341,13 @@ namespace SimpleBlog.Infrastructure.Data.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsReacted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReactType")
+                    b.Property<int>("React")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -405,7 +435,15 @@ namespace SimpleBlog.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SimpleBlog.Domain.Entities.LikeDisLike", "LikeDisLike")
+                        .WithMany()
+                        .HasForeignKey("LikeDisLikeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AppUser");
+
+                    b.Navigation("LikeDisLike");
                 });
 
             modelBuilder.Entity("SimpleBlog.Domain.Entities.Reaction", b =>

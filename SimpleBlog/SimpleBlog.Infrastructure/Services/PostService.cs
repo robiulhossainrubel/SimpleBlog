@@ -15,12 +15,12 @@ namespace SimpleBlog.Infrastructure.Services
 
         public Post Get(int id)
         {
-            return context.Posts.Include(x => x.LikeDisLike).Include(x => x.Comment).Include(x => x.AppUser).FirstOrDefault(x => x.Id == id);
+            return context.Posts.Include(x => x.Comment).Include(x => x.Reaction).Include(x => x.AppUser).FirstOrDefault(x => x.Id == id);
         }
 
         public List<Post> GetAll()
         {
-            var posts = context.Posts.Include(p => p.LikeDisLike).Include(p => p.Comment).Include(x => x.AppUser).ToList();
+            var posts = context.Posts.Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).ToList();
 
             return posts;
         }

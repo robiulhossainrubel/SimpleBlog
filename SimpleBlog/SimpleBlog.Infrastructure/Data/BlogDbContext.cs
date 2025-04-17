@@ -8,7 +8,7 @@ namespace SimpleBlog.Infrastructure.Data
     {
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<LikeDisLike> LikeDisLikes { get; set; }
+        public DbSet<Reaction> Reactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,7 +33,7 @@ namespace SimpleBlog.Infrastructure.Data
                 },
                 new AppUserRole
                 {
-                    Id=2,
+                    Id = 2,
                     Name = "User",
                     NormalizedName = "User"
                 }
