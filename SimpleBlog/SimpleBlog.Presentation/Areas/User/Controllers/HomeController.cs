@@ -7,11 +7,13 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
     public class HomeController(IPostService postService) : Controller
     {
-        public IActionResult Index()
+        private int page = 5;
+        public IActionResult Index(int? pages)
         {
 
-            var posts = postService.GetAll().Where(x => x.Status == Status.Approve).OrderByDescending(x => x.CreatedAt).ToList();
-
+            var posts = postService.GetAll().Where(x => x.Status == Status.Approve).Take(pages ?? 5).OrderBy(x => x.CreatedAt).ToList();
+            page += 5;
+            TempData["page"] = page;
             return View(posts);
         }
         public IActionResult Privacy()

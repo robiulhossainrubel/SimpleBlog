@@ -21,11 +21,11 @@
                     <a asp-controller="Post" asp-action="DisLike" asp-route-id="@post.LikeDisLikeId" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@post.LikeDisLike.DisLike)</a>
                 </div>
             </div>
-            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom">Details</a>
+            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>
         </div>
     </div>
 }
-<a class="link-info" asp-area="User" asp-controller="Home" asp-action="Index">Load More</a>
+<a class="link-info" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-pages="@TempData["page"]">Load More</a>
 
 @* <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
