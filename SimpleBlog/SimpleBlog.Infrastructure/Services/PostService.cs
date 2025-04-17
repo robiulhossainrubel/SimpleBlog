@@ -24,5 +24,11 @@ namespace SimpleBlog.Infrastructure.Services
 
             return posts;
         }
+
+        public void Update(Post post)
+        {
+            context.Update(post);
+            context.SaveChanges();
+        }
     }
 }

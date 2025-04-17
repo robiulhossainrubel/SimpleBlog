@@ -1,5 +1,4 @@
-﻿@using SimpleBlog.Presentation.ViewModel
-@model PostVM
+﻿@model PostVM
 
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
@@ -54,7 +53,7 @@
                         <input type="submit" value="Submit" class="btn btn-primary" />
                     </form>
                 </div>
-                @foreach (var comment in Model.Post.Comment)
+                @foreach (var comment in Model.Post.Comment.OrderByDescending(x=> x.Time))
                 {
                     <div class="commented-section mt-2">
                         <div class="d-flex flex-row align-items-center commented-user">

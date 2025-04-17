@@ -7,12 +7,10 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
     public class HomeController(IPostService postService) : Controller
     {
-        private static int p = 0;
         public IActionResult Index()
         {
 
-            var posts = postService.GetAll().Skip(p).Take(5).ToList();
-            p = p + 5;
+            var posts = postService.GetAll().Where(x => x.Status == Status.Approve).OrderByDescending(x => x.CreatedAt).ToList();
 
             return View(posts);
         }

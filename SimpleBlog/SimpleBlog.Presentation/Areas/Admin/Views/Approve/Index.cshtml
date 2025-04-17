@@ -21,29 +21,9 @@
                     <a asp-controller="Post" asp-action="DisLike" asp-route-id="@post.LikeDisLikeId" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@post.LikeDisLike.DisLike)</a>
                 </div>
             </div>
-            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom">Details</a>
+            <a asp-controller="Approve" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom">Details</a>
         </div>
     </div>
 }
 <a class="link-info" asp-area="User" asp-controller="Home" asp-action="Index">Load More</a>
-
-@* <div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">post.Title</h5>
-                <p class="card-text">post.Body</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago post.CreatedAt</small></p>
-            </div>
-            <div class="card-body">
-                <a class="btn btn-outline-success">Like (0)</a>
-                <a class="btn btn-outline-danger">DisLike (0)</a>
-            </div>
-        </div>
-        <a class="btn btn-primary rounded-bottom">Details</a>
-    </div>
-</div> *@
 

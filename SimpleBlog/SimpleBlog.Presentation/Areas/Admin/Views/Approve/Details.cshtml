@@ -1,0 +1,35 @@
+﻿@model Post
+<form method="post">
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
+        </div>
+            <input asp-for="Id" hidden />
+            <input asp-for="Title" hidden />
+            <input asp-for="Body" hidden />
+            <input asp-for="Body" hidden />
+            <input asp-for="AppUserId" hidden />
+            <input asp-for="LikeDisLikeId" hidden />
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Title</h5>
+                <p class="card-text">@Model.Body</p>
+                <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.CreatedAt).ToString("mm")) mins ago</small></p>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Post" asp-action="Like" asp-route-id="@Model.LikeDisLikeId" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@Model.LikeDisLike.Like)</a>
+                <a asp-controller="Post" asp-action="DisLike" asp-route-id="@Model.LikeDisLikeId" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@Model.LikeDisLike.DisLike)</a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<Status>()" class="form-control"></select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group py-2">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+</div>
+</form>

@@ -48,10 +48,6 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             postVM.Comment = new Comment();
             return View(postVM);
         }
-        public IActionResult Comment()
-        {
-            return View();
-        }
         public IActionResult Like(int id)
         {
             var ld = likeDisLikeService.Get(id);
