@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -12,68 +13,52 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Create(Post post)
-        {
-            var userId = userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
-            post.AppUserId = userId;
-            post.PostStatus = Status.Pending;
-            post.CreatedAt = DateTime.Now;
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create(Post post)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            post.AppUserId = user.Id;
 
             postService.Create(post);
+
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Details(int id)
         {
             var postVm = new PostVM
             {
-                Post = postService.Get(id),
-                Comment = new Comment()
+                Post = postService.Get(id)
             };
 
             return View(postVm);
         }
+
+        [Authorize]
         [HttpPost]
-        public IActionResult Details(PostVM postVM)
+        public async Task<IActionResult> Details(PostVM postVM)
         {
             var comment = postVM.Comment;
-            comment.Time = DateTime.Now;
-            comment.AppUserId = userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            comment.AppUserId = user.Id;
             commentService.Create(comment);
 
             postVM.Post = postService.Get(postVM.Comment.PostId);
-            postVM.Comment = new Comment();
+
             return View(postVM);
         }
+
+        [Authorize]
         public IActionResult React(int postId, int reactId)
         {
             var userId = userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
-            var reaction = reactionService.GetByPostIdAndUserId(postId, userId);
 
-            if (reaction == null)
-            {
-                var react = new Reaction
-                {
-                    ReactType = (ReactionType)reactId,
-                    PostId = postId,
-                    AppUserId = userId
-                };
+            reactionService.React(postId, reactId, userId);
 
-                reactionService.Create(react);
-            }
-            else
-            {
-                if (reaction.ReactType == (ReactionType)reactId)
-                {
-                    reactionService.Delete(postId, userId);
-                }
-                else
-                {
-                    reaction.ReactType = (ReactionType)reactId;
-                    reactionService.Update(reaction);
-                }
-            }
             return RedirectToAction("Index", "Home");
         }
     }

@@ -12,13 +12,18 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
+                    <h4 class="card-title">@post.AppUser.Name</h4>
                     <h5 class="card-title">@post.Title</h5>
                     <p class="card-text">@post.Body</p>
                     <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
                 </div>
                 <div class="card-body">
-                    <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="1" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@post.Reaction.Where(x => x.ReactType == ReactionType.Like).Count())</a>
-                    <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="2" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@post.Reaction.Where(x => x.ReactType == ReactionType.DisLike).Count())</a>
+                    @foreach (var c in Enum.GetValues(typeof(ReactionType)))
+                    {
+                        <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="@((int)c)" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@post.Reaction.Where(x => x.ReactType == (ReactionType)c).Count())</a>
+                    }
+                    @* <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="1" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@post.Reaction.Where(x => x.ReactType == ReactionType.Like).Count())</a>
+                    <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="2" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@post.Reaction.Where(x => x.ReactType == ReactionType.DisLike).Count())</a> *@
                 </div>
             </div>
             <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>

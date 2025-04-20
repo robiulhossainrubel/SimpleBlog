@@ -8,15 +8,30 @@ namespace SimpleBlog.Infrastructure.Services
     {
         public void Create(Reaction reaction)
         {
-            context.Reactions.Add(reaction);
-            context.SaveChanges();
+            try
+            {
+                context.Reactions.Add(reaction);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void Delete(int postId, int userId)
         {
-            var react = GetByPostIdAndUserId(postId, userId);
-            context.Reactions.Remove(react);
-            context.SaveChanges();
+            try
+            {
+                var react = GetByPostIdAndUserId(postId, userId);
+
+                context.Reactions.Remove(react);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public Reaction Get(int id)
@@ -38,8 +53,51 @@ namespace SimpleBlog.Infrastructure.Services
 
         public void Update(Reaction reaction)
         {
-            context.Reactions.Update(reaction);
-            context.SaveChanges();
+            try
+            {
+                context.Reactions.Update(reaction);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public void React(int postId, int reactId, int userId)
+        {
+            try
+            {
+                var reaction = GetByPostIdAndUserId(postId, userId);
+
+                if (reaction == null)
+                {
+                    var react = new Reaction
+                    {
+                        ReactType = (ReactionType)reactId,
+                        PostId = postId,
+                        AppUserId = userId
+                    };
+
+                    Create(react);
+                }
+                else
+                {
+                    if (reaction.ReactType == (ReactionType)reactId)
+                    {
+                        Delete(postId, userId);
+                    }
+                    else
+                    {
+                        reaction.ReactType = (ReactionType)reactId;
+
+                        Update(reaction);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

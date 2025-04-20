@@ -9,13 +9,25 @@ namespace SimpleBlog.Infrastructure.Services
     {
         public void Create(Post post)
         {
-            context.Posts.Add(post);
-            context.SaveChanges();
+            try
+            {
+                context.Posts.Add(post);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public Post Get(int id)
         {
-            return context.Posts.Include(x => x.Comment).Include(x => x.Reaction).Include(x => x.AppUser).FirstOrDefault(x => x.Id == id);
+            var comment = context.Comments.Where(x => x.PostId == id).Include(x => x.AppUser).ToList();
+            var post = context.Posts.Include(x => x.Reaction).Include(x => x.AppUser).FirstOrDefault(x => x.Id == id);
+
+            post.Comment = comment;
+
+            return post;
         }
 
         public List<Post> GetAll()
@@ -27,8 +39,15 @@ namespace SimpleBlog.Infrastructure.Services
 
         public void Update(Post post)
         {
-            context.Update(post);
-            context.SaveChanges();
+            try
+            {
+                context.Posts.Update(post);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

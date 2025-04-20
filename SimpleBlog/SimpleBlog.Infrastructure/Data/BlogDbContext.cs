@@ -14,16 +14,6 @@ namespace SimpleBlog.Infrastructure.Data
         {
             base.OnModelCreating(builder);
 
-            //builder.Entity<Post>()
-            //    .HasOne(u => u.LikeDisLike)
-            //    .WithOne(s => s.Post)
-            //    .HasForeignKey<LikeDisLike>(m => m.PostId);
-
-            //builder.Entity<Post>()
-            //    .HasMany(p => p.Comment)
-            //    .WithOne(c => c.Post)
-            //    .HasForeignKey(m => m.PostId);
-
             builder.Entity<AppUserRole>().HasData(
                 new AppUserRole
                 {

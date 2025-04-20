@@ -9,8 +9,15 @@ namespace SimpleBlog.Infrastructure.Services
     {
         public void Create(Comment comment)
         {
-            context.Comments.Add(comment);
-            context.SaveChanges();
+            try
+            {
+                context.Comments.Add(comment);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public List<Comment> GetAll()

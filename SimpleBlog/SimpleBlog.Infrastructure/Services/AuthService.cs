@@ -9,12 +9,23 @@ namespace SimpleBlog.Infrastructure.Services
     {
         public async Task<bool> SignInAsync(SignInDTO signInDTO)
         {
-            var result = await signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
-            if (result.Succeeded)
+            try
             {
-                return true;
+                var result = await signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return true;
+                }
+
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
         }
 
         public Task SignOutAsync()
@@ -24,23 +35,34 @@ namespace SimpleBlog.Infrastructure.Services
 
         public async Task<bool> SignUpAsync(SignUpDTO signUpDTO)
         {
-            var user = new AppUser
+            try
             {
-                Email = signUpDTO.Email,
-                UserName = signUpDTO.Email,
-                NormalizedUserName = signUpDTO.Name,
-                Role = signUpDTO.Role ?? "User"
-            };
+                var user = new AppUser
+                {
+                    Name = signUpDTO.Name,
+                    Email = signUpDTO.Email,
+                    UserName = signUpDTO.Email,
+                    NormalizedUserName = signUpDTO.Name,
+                    Role = signUpDTO.Role ?? "User"
+                };
 
-            var result = await userManager.CreateAsync(user, signUpDTO.Password);
-            await userManager.AddToRoleAsync(user, user.Role);
+                var result = await userManager.CreateAsync(user, signUpDTO.Password);
+                await userManager.AddToRoleAsync(user, user.Role);
 
-            if (result.Succeeded)
-            {
-                await signInManager.SignInAsync(user, isPersistent: false);
-                return true;
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    return true;
+                }
+
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleBlog.Application.Interface;
+using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
 using SimpleBlog.Infrastructure.Services;
 
@@ -14,6 +16,16 @@ namespace SimpleBlog.Infrastructure.DI
             services.AddDbContext<BlogDbContext>(option =>
             {
                 option.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddIdentity<AppUser, AppUserRole>(options => options.SignIn.RequireConfirmedAccount = false).AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<BlogDbContext>();
+
+            services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = "/Auth/Auth/SignIn";
+                option.AccessDeniedPath = "/Auth/Auth/AccessDenied";
+                option.ExpireTimeSpan = TimeSpan.FromDays(1);
             });
 
             services.AddScoped<IAuthService, AuthService>();

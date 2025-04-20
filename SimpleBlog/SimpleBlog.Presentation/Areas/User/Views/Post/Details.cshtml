@@ -7,6 +7,7 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
+                <h4 class="card-title">@Model.Post.AppUser.Name</h4>
                 <h5 class="card-title">@Model.Post.Title</h5>
                 <p class="card-text">@Model.Post.Body</p>
                 <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.Post.CreatedAt).ToString("mm")) mins ago</small></p>
@@ -53,11 +54,13 @@
                         <input type="submit" value="Submit" class="btn btn-primary" />
                     </form>
                 </div>
-                @foreach (var comment in Model.Post.Comment.OrderByDescending(x=> x.Time))
+                @foreach (var comment in Model.Post.Comment)
                 {
                     <div class="commented-section mt-2">
                         <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">@comment.AppUser.NormalizedUserName</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">@((@DateTime.Now - comment.Time).ToString("mm")) mins ago</span>
+                            <h5 class="mr-2">@comment.AppUser.NormalizedUserName</h5>
+                            <span class="dot mb-1"></span>
+                            <span class="mb-1 ml-2">@((@DateTime.Now - comment.Time).ToString("mm")) mins ago</span>
                         </div>
                         <div class="comment-text-sm">
                             <span>@comment.Text</span>

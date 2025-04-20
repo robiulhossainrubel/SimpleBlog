@@ -58,6 +58,7 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         public async Task<IActionResult> SignUp(SignUpDTO signUpDTO)
         {
             ViewBag.Roles = roleManager.Roles.Select(x => new SelectListItem { Text = x.Name, Value = x.Name });
+
             var url = Url.Content(signUpDTO.ReturnUrl ?? "/");
 
             if (ModelState.IsValid)
@@ -72,5 +73,10 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
 
             return View();
         }
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
