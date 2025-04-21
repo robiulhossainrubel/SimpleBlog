@@ -4,14 +4,19 @@ using SimpleBlog.Infrastructure.Data;
 
 namespace SimpleBlog.Infrastructure.Services
 {
-    public class ReactionService(BlogDbContext context) : IReactionService
+    public class ReactionService : IReactionService
     {
+        private readonly BlogDbContext _context;
+        public ReactionService(BlogDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Reaction reaction)
         {
             try
             {
-                context.Reactions.Add(reaction);
-                context.SaveChanges();
+                _context.Reactions.Add(reaction);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -25,8 +30,8 @@ namespace SimpleBlog.Infrastructure.Services
             {
                 var react = GetByPostIdAndUserId(postId, userId);
 
-                context.Reactions.Remove(react);
-                context.SaveChanges();
+                _context.Reactions.Remove(react);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -36,27 +41,31 @@ namespace SimpleBlog.Infrastructure.Services
 
         public Reaction Get(int id)
         {
-            return context.Reactions.FirstOrDefault(x => x.Id == id);
+            var reaction = _context.Reactions.FirstOrDefault(x => x.Id == id);
+
+            return reaction;
         }
 
         public List<Reaction> GetAll()
         {
-            var reactionslist = context.Reactions.ToList();
+            var reactionslist = _context.Reactions.ToList();
 
             return reactionslist;
         }
 
         public Reaction GetByPostIdAndUserId(int postId, int userId)
         {
-            return context.Reactions.FirstOrDefault(x => x.PostId == postId && x.AppUserId == userId);
+            var reaction = _context.Reactions.FirstOrDefault(x => x.PostId == postId && x.AppUserId == userId);
+
+            return reaction;
         }
 
         public void Update(Reaction reaction)
         {
             try
             {
-                context.Reactions.Update(reaction);
-                context.SaveChanges();
+                _context.Reactions.Update(reaction);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {

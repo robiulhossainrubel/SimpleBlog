@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
-using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Presentation.Areas.Auth.Controllers
 {
-    public class AuthController(IAuthService authService, RoleManager<AppUserRole> roleManager) : Controller
+    public class AuthController : Controller
     {
+        private readonly IAuthService _authService;
+
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -24,7 +27,7 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
 
             if (ModelState.IsValid)
             {
-                var result = await authService.SignInAsync(signInDTO);
+                var result = await _authService.SignInAsync(signInDTO);
 
                 if (result == true)
                 {
@@ -32,12 +35,14 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
                 }
             }
 
+            TempData["error"] = "Sign In Failed";
+
             return View(signInDTO);
         }
         [HttpPost]
         public IActionResult SignOut(string returnUrl = null)
         {
-            authService.SignOutAsync().GetAwaiter().GetResult();
+            _authService.SignOutAsync().GetAwaiter().GetResult();
 
             if (returnUrl != null)
             {
@@ -50,26 +55,24 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         }
         public IActionResult SignUp()
         {
-            ViewBag.Roles = roleManager.Roles.Select(x => new SelectListItem { Text = x.Name, Value = x.Name });
-
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpDTO signUpDTO)
         {
-            ViewBag.Roles = roleManager.Roles.Select(x => new SelectListItem { Text = x.Name, Value = x.Name });
-
             var url = Url.Content(signUpDTO.ReturnUrl ?? "/");
 
             if (ModelState.IsValid)
             {
-                bool result = await authService.SignUpAsync(signUpDTO);
+                bool result = await _authService.SignUpAsync(signUpDTO);
 
                 if (result == true)
                 {
                     return LocalRedirect("/");
                 }
             }
+
+            TempData["error"] = "Sign Up Failed";
 
             return View();
         }

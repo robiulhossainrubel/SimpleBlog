@@ -1,9 +1,21 @@
-﻿@model List<Post>
+﻿@using SimpleBlog.Application.DTOs
+@using SimpleBlog.Infrastructure.Services
+@model Pagination<Post>
 @{
     ViewData["Title"] = "Home Page";
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var totalPageNo = Model.TotalPageNo;
+    var currentPageNo = Model.PageIndex;
+}
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["message"]
+    </div>
 }
 <a class="link-info" asp-area="User" asp-controller="Post" asp-action="Create">Create New Post</a>
-@foreach (var post in Model)
+@foreach (var post in Model.Items)
 {
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
@@ -30,25 +42,11 @@
         </div>
     </div>
 }
-<a class="link-info" asp-area="User" asp-controller="Home" asp-action="Index" asp-route-pages="@TempData["page"]">Load More</a>
+<br />
 
-@* <div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">post.Title</h5>
-                <p class="card-text">post.Body</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago post.CreatedAt</small></p>
-            </div>
-            <div class="card-body">
-                <a class="btn btn-outline-success">Like (0)</a>
-                <a class="btn btn-outline-danger">DisLike (0)</a>
-            </div>
-        </div>
-        <a class="btn btn-primary rounded-bottom">Details</a>
-    </div>
-</div> *@
+<a asp-action="Index" asp-route-pageNo="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">Previous</a>
+<a asp-action="Index" asp-route-pageNo="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">Next</a>
+<span>Page No : @currentPageNo of @totalPageNo</span>
+
+
 

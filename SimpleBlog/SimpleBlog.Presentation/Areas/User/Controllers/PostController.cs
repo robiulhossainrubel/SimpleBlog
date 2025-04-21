@@ -7,8 +7,20 @@ using SimpleBlog.Presentation.ViewModel;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
-    public class PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager) : Controller
+    public class PostController : Controller
     {
+        private readonly IPostService _postService;
+        private readonly IReactionService _reactionService;
+        private readonly ICommentService _commentService;
+        private readonly UserManager<AppUser> _userManager;
+        public PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager)
+        {
+            _postService = postService;
+            _reactionService = reactionService;
+            _commentService = commentService;
+            _userManager = userManager;
+        }
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -18,11 +30,13 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Post post)
         {
-            var user = await userManager.GetUserAsync(HttpContext.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
             post.AppUserId = user.Id;
 
-            postService.Create(post);
+            _postService.Create(post);
+
+            TempData["message"] = "Post Pending For Approval";
 
             return RedirectToAction("Index", "Home");
         }
@@ -31,7 +45,7 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         {
             var postVm = new PostVM
             {
-                Post = postService.Get(id)
+                Post = _postService.Get(id)
             };
 
             return View(postVm);
@@ -42,12 +56,12 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         public async Task<IActionResult> Details(PostVM postVM)
         {
             var comment = postVM.Comment;
-            var user = await userManager.GetUserAsync(HttpContext.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
             comment.AppUserId = user.Id;
-            commentService.Create(comment);
+            _commentService.Create(comment);
 
-            postVM.Post = postService.Get(postVM.Comment.PostId);
+            postVM.Post = _postService.Get(postVM.Comment.PostId);
 
             return View(postVM);
         }
@@ -55,9 +69,9 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         [Authorize]
         public IActionResult React(int postId, int reactId)
         {
-            var userId = userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+            var userId = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
 
-            reactionService.React(postId, reactId, userId);
+            _reactionService.React(postId, reactId, userId);
 
             return RedirectToAction("Index", "Home");
         }

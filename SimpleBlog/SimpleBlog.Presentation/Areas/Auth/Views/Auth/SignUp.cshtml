@@ -7,6 +7,12 @@
 
 <div class="row">
     <div class="col-md-4">
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["error"]
+            </div>
+        }
         <form id="registerForm" asp-route-returnUrl="ReturnUrl" method="post">
             <h2>Create a new account.</h2>
             <hr />
@@ -30,13 +36,6 @@
                 <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <select asp-for="Role" class="form-select" asp-items="@ViewBag.Roles">
-                    <option>----Select----</option>
-                </select>
-                <label asp-for="Role">Role</label>
-                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
         </form>

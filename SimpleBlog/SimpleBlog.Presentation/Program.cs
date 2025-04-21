@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Data;
 using SimpleBlog.Infrastructure.DI;
 
 namespace SimpleBlog.Presentation
@@ -24,6 +21,8 @@ namespace SimpleBlog.Presentation
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseDataSeed();
 
             app.UseHttpsRedirection();
             app.UseRouting();

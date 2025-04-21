@@ -1,4 +1,5 @@
-﻿using SimpleBlog.Domain.Entities;
+﻿using SimpleBlog.Application.DTOs;
+using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Application.Interface
 {
@@ -8,5 +9,6 @@ namespace SimpleBlog.Application.Interface
         void Update(Post post);
         Post Get(int id);
         List<Post> GetAll();
+        Pagination<Post> GetPaginate(int pageIndex, int pageSize);
     }
 }

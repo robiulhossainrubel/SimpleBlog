@@ -5,14 +5,19 @@ using SimpleBlog.Infrastructure.Data;
 
 namespace SimpleBlog.Infrastructure.Services
 {
-    public class CommentService(BlogDbContext context) : ICommentService
+    public class CommentService : ICommentService
     {
+        private readonly BlogDbContext _context;
+        public CommentService(BlogDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Comment comment)
         {
             try
             {
-                context.Comments.Add(comment);
-                context.SaveChanges();
+                _context.Comments.Add(comment);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -22,7 +27,7 @@ namespace SimpleBlog.Infrastructure.Services
 
         public List<Comment> GetAll()
         {
-            var comments = context.Comments.Include(c => c.AppUser).ToList();
+            var comments = _context.Comments.Include(c => c.AppUser).ToList();
 
             return comments;
         }

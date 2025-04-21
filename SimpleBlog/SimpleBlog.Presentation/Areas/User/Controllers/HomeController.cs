@@ -2,19 +2,26 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
+using SimpleBlog.Infrastructure.Services;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
-    public class HomeController(IPostService postService) : Controller
+    public class HomeController : Controller
     {
-        private int _page = 5;
-        public IActionResult Index(int? pages)
+        private readonly IPostService _postService;
+        public HomeController(IPostService postService)
         {
+            _postService = postService;
+        }
+        public IActionResult Index(int? pageNo)
+        {
+            int pageSize = 5;
 
-            var posts = postService.GetAll().Where(x => x.PostStatus == Status.Approve).Take(pages ?? 5).OrderBy(x => x.CreatedAt).ToList();
-            _page += 5;
-            TempData["page"] = _page;
+            var posts = _postService.GetPaginate(pageNo ?? 1, pageSize);
 
+            //var posts = _postService.GetAll().Where(x => x.PostStatus == Status.Approve).OrderBy(x => x.CreatedAt).ToList();
+
+            //return View(PagingList<Post>.CreateAsync(posts.AsQueryable<Post>(), pageNo ?? 1, pageSize));
             return View(posts);
         }
         public IActionResult Privacy()

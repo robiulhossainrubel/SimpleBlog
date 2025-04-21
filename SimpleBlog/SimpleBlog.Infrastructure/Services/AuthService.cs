@@ -5,13 +5,20 @@ using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Infrastructure.Services
 {
-    public class AuthService(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : IAuthService
+    public class AuthService : IAuthService
     {
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        public AuthService(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+        }
         public async Task<bool> SignInAsync(SignInDTO signInDTO)
         {
             try
             {
-                var result = await signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
 
                 if (result.Succeeded)
                 {
@@ -30,7 +37,7 @@ namespace SimpleBlog.Infrastructure.Services
 
         public Task SignOutAsync()
         {
-            return signInManager.SignOutAsync();
+            return _signInManager.SignOutAsync();
         }
 
         public async Task<bool> SignUpAsync(SignUpDTO signUpDTO)
@@ -46,12 +53,12 @@ namespace SimpleBlog.Infrastructure.Services
                     Role = signUpDTO.Role ?? "User"
                 };
 
-                var result = await userManager.CreateAsync(user, signUpDTO.Password);
-                await userManager.AddToRoleAsync(user, user.Role);
+                var result = await _userManager.CreateAsync(user, signUpDTO.Password);
+                await _userManager.AddToRoleAsync(user, user.Role);
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return true;
                 }
