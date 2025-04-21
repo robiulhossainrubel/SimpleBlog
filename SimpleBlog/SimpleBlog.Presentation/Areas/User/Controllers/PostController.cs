@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
@@ -40,12 +41,12 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
+        [HttpGet]
         public IActionResult Details(int id)
         {
             var postVm = new PostVM
             {
-                Post = _postService.Get(id)
+                Post = _postService.Get((int)id)
             };
 
             return View(postVm);
@@ -67,12 +68,16 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         }
 
         [Authorize]
-        public IActionResult React(int postId, int reactId)
+        public async Task<IActionResult> React(int postId, int reactId, int? id)
         {
-            var userId = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            _reactionService.React(postId, reactId, userId);
+            _reactionService.React(postId, reactId, user.Id);
 
+            if (id != null)
+            {
+                return LocalRedirect($"/User/Post/Details/{id}");
+            }
             return RedirectToAction("Index", "Home");
         }
     }

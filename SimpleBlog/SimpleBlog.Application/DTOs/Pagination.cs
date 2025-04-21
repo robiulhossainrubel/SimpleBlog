@@ -2,6 +2,7 @@
 {
     public class Pagination<T>
     {
+        public int? UserId { get; set; }
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
         public bool HasPreviousPage
