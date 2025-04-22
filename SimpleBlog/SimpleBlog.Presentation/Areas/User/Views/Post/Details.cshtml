@@ -13,8 +13,24 @@
                 <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.Post.CreatedAt).ToString("mm")) mins ago</small></p>
             </div>
             <div class="card-body">
-                <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="1" asp-route-id="@Model.Post.Id" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up"></i> (@Model.Post.Reaction.Where(x => x.ReactType == ReactionType.Like).Count())</a>
-                <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="2" asp-route-id="@Model.Post.Id" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i> (@Model.Post.Reaction.Where(x => x.ReactType == ReactionType.DisLike).Count())</a>
+                @foreach (var react in Enum.GetValues(typeof(ReactionType)))
+                {
+                    string reactionFlag = "";
+
+                    if (Model.UserId != null)
+                    {
+                        var reaction = Model.Post.Reaction.FirstOrDefault(x => x.AppUserId == Model.UserId);
+
+                        if (reaction != null)
+                        {
+                            if (reaction.ReactType == (ReactionType)react)
+                            {
+                                reactionFlag = "active";
+                            }
+                        }
+                    }
+                    <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="@((int)react)" asp-route-id="@Model.Post.Id" class="btn btn-outline-success @reactionFlag"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@Model.Post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
+                }
             </div>
         </div>
     </div>

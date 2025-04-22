@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Presentation.ViewModel;
@@ -14,12 +15,14 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         private readonly IReactionService _reactionService;
         private readonly ICommentService _commentService;
         private readonly UserManager<AppUser> _userManager;
-        public PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager)
+        private readonly SignInManager<AppUser> _signInManager;
+        public PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _postService = postService;
             _reactionService = reactionService;
             _commentService = commentService;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         [Authorize]
         public IActionResult Create()
@@ -48,6 +51,13 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             {
                 Post = _postService.Get((int)id)
             };
+
+            var isSignIn = _signInManager.IsSignedIn(HttpContext.User);
+
+            if (isSignIn == true)
+            {
+                postVm.UserId = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+            }
 
             return View(postVm);
         }
