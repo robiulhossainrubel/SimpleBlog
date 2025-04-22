@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -36,11 +37,20 @@ namespace SimpleBlog.Infrastructure.Services
             return post;
         }
 
-        public List<Post> GetAll()
+        public List<Post> GetAll(Expression<Func<Post, bool>>? expression = null)
         {
-            var posts = _context.Posts.Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).ToList();
+            if (expression == null)
+            {
+                var posts = _context.Posts.Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
 
-            return posts;
+                return posts;
+            }
+            else
+            {
+                var posts = _context.Posts.Where(expression).Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
+
+                return posts;
+            }
         }
 
         public Pagination<Post> GetPaginate(int pageIndex, int pageSize)

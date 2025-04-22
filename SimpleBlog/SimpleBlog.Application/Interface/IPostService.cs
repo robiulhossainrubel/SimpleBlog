@@ -1,4 +1,5 @@
-﻿using SimpleBlog.Application.DTOs;
+﻿using System.Linq.Expressions;
+using SimpleBlog.Application.DTOs;
 using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Application.Interface
@@ -8,7 +9,7 @@ namespace SimpleBlog.Application.Interface
         void Create(Post post);
         void Update(Post post);
         Post Get(int id);
-        List<Post> GetAll();
+        List<Post> GetAll(Expression<Func<Post, bool>>? expression = null);
         Pagination<Post> GetPaginate(int pageIndex, int pageSize);
     }
 }

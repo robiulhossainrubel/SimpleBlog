@@ -15,7 +15,7 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var posts = _postService.GetAll().Where(x => x.PostStatus != Status.Approve).OrderByDescending(x => x.CreatedAt).ToList();
+            var posts = _postService.GetAll(x => x.PostStatus != Status.Approve).ToList();
 
             return View(posts);
         }

@@ -34,6 +34,12 @@
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Approve" asp-action="Index">Post Approval</a>
                             </li>
                         }
+                        @if (User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="User" asp-controller="PostManage" asp-action="Index">Manage Post</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
