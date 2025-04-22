@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -67,6 +68,20 @@ namespace SimpleBlog.Infrastructure.Services
             var pageData = new Pagination<Post>(posts, _context.Posts.Count(), pageIndex, pageSize);
 
             return pageData;
+        }
+
+        public List<Post> TopPosts()
+        {
+            var posts = _context.Posts
+                .Include(p => p.Comment)
+                .Include(x => x.Reaction)
+                .Include(x => x.AppUser)
+                .OrderByDescending(x => x.Reaction.Count + x.Comment.Count)
+                .Take(5)
+                .ToList();
+
+
+            return posts;
         }
 
         public void Update(Post post)

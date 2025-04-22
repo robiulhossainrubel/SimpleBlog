@@ -1,8 +1,7 @@
 ﻿@model List<Post>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Top Posts";
 }
-<a asp-controller="Approve" asp-action="TopPosts" class="btn btn-primary rounded-bottom">Top 5 Post</a>
 @foreach (var post in Model)
 {
     <div class="card mb-3" style="max-width: 540px;">
@@ -17,9 +16,14 @@
                     <p class="card-text">@post.Body</p>
                     <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
                 </div>
+                <div class="card-body">
+                    @foreach (var react in Enum.GetValues(typeof(ReactionType)))
+                    {
+                        <a class="btn btn-outline-success"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
+                    }
+                </div>
             </div>
-            <a asp-controller="Approve" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom">Details</a>
+            <a asp-area="User" asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>
         </div>
     </div>
 }
-

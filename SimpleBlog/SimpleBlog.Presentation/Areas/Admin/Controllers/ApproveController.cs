@@ -32,5 +32,11 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult TopPosts()
+        {
+            var topPosts = _postService.TopPosts();
+
+            return View(topPosts);
+        }
     }
 }

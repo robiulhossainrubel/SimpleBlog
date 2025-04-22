@@ -10,6 +10,7 @@ namespace SimpleBlog.Application.Interface
         void Update(Post post);
         Post Get(int id);
         List<Post> GetAll(Expression<Func<Post, bool>>? expression = null);
+        List<Post> TopPosts();
         Pagination<Post> GetPaginate(int pageIndex, int pageSize);
     }
 }
