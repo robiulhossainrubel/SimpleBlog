@@ -4,14 +4,16 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <p class="nav-link text-dark" title="Manage">Hello @User.Identity.Name</p>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Auth" asp-controller="Auth" asp-action="SignOut" asp-route-returnUrl="/" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">SignOut</button>
-            </form>
-        </li>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hello @User.Identity.Name
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-area="Auth" asp-controller="Account" asp-action="ChangePassword">Change Password</a></li>
+                <li><a class="dropdown-item" asp-area="Auth" asp-controller="Auth" asp-action="SignOut" asp-route-returnUrl="/">SignOut</a></li>
+            </ul>
+        </div>
     }
     else
     {

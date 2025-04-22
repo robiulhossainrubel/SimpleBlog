@@ -39,7 +39,6 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
 
             return View(signInDTO);
         }
-        [HttpPost]
         public IActionResult SignOut(string returnUrl = null)
         {
             _authService.SignOutAsync().GetAwaiter().GetResult();
