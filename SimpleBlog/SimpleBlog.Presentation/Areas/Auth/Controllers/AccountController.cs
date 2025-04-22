@@ -49,7 +49,6 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
             await _signInManager.RefreshSignInAsync(user);
 
             return LocalRedirect("/");
-
         }
     }
 }
