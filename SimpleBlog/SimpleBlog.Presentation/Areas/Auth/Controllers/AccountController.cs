@@ -20,22 +20,23 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         {
             return View();
         }
+
         public IActionResult ChangePasswordAsync()
         {
             return View();
-
         }
+
         [HttpPost]
         public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDTO changePasswordDTO)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
                 return View();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
 
-            var result = await _userManager.ChangePasswordAsync(user, changePasswordDTO.OldPassword, changePasswordDTO.NewPassword);
+            var result = await _userManager.ChangePasswordAsync(currentUser, changePasswordDTO.OldPassword, changePasswordDTO.NewPassword);
 
             if (result.Succeeded == false)
             {
@@ -43,10 +44,11 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+
                 return View();
             }
 
-            await _signInManager.RefreshSignInAsync(user);
+            await _signInManager.RefreshSignInAsync(currentUser);
 
             return LocalRedirect("/");
         }

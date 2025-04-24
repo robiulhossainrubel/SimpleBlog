@@ -10,11 +10,13 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
     {
         private readonly IPostService _postService;
         private readonly UserManager<AppUser> _userManager;
+
         public PostManageController(IPostService postService, UserManager<AppUser> userManager)
         {
             _postService = postService;
             _userManager = userManager;
         }
+
         public async Task<IActionResult> Index(int? status)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
@@ -10,6 +9,7 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly BlogDbContext _context;
+
         public UserManagerController(UserManager<AppUser> userManager, BlogDbContext context)
         {
             _userManager = userManager;
@@ -24,7 +24,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 
             return View(users);
         }
-        public IActionResult BlockUnBlock(int id)
+
+        public async Task<IActionResult> BlockUnBlockAsync(int id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
 

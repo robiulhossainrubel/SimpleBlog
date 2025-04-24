@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using SimpleBlog.Infrastructure.DI;
+using SimpleBlog.Presentation.RD;
 
 namespace SimpleBlog.Presentation
 {
@@ -11,6 +13,11 @@ namespace SimpleBlog.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddInfrastructureService(builder.Configuration);
+            builder.Services.AddAuthorization(option =>
+            {
+                option.AddPolicy("CheckUser", policy => policy.Requirements.Add(new CheckUser()));
+            });
+            builder.Services.AddScoped<IAuthorizationHandler, CheckUserHandler>();
 
             var app = builder.Build();
 

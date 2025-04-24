@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Services;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
@@ -12,12 +11,14 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         private readonly IPostService _postService;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+
         public HomeController(IPostService postService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _postService = postService;
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         public IActionResult Index(int? pageNo)
         {
             int pageSize = 5;
@@ -27,14 +28,13 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
 
             if (isSignIn == true)
             {
-                posts.UserId = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult().Id;
+                var currentUser = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
+                posts.UserId = currentUser.Id;
             }
 
-            //var posts = _postService.GetAll().Where(x => x.PostStatus == Status.Approve).OrderBy(x => x.CreatedAt).ToList();
-
-            //return View(PagingList<Post>.CreateAsync(posts.AsQueryable<Post>(), pageNo ?? 1, pageSize));
             return View(posts);
         }
+
         public IActionResult Privacy()
         {
             return View();

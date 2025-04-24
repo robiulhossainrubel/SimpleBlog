@@ -9,22 +9,26 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
     public class ApproveController : Controller
     {
         private readonly IPostService _postService;
+
         public ApproveController(IPostService postService)
         {
             _postService = postService;
         }
+
         public IActionResult Index()
         {
             var posts = _postService.GetAll(x => x.PostStatus != Status.Approve).ToList();
 
             return View(posts);
         }
+
         public IActionResult Details(int id)
         {
             var post = _postService.Get(id);
 
             return View(post);
         }
+
         [HttpPost]
         public IActionResult Details(Post post)
         {
@@ -32,6 +36,7 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult TopPosts()
         {
             var topPosts = _postService.TopPosts();

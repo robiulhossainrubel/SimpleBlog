@@ -12,26 +12,36 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         {
             _authService = authService;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         public IActionResult SignIn()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInDTO signInDTO)
         {
             var url = Url.Content(signInDTO.ReturnUrl ?? "~/");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == true)
             {
                 var result = await _authService.SignInAsync(signInDTO);
 
-                if (result == true)
+                if (result.Succeeded == true)
                 {
                     return LocalRedirect(url);
+                }
+
+                if (result.IsLockedOut == true)
+                {
+                    TempData["error"] = "You are Blocked";
+
+                    return View(signInDTO);
                 }
             }
 
@@ -39,6 +49,7 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
 
             return View(signInDTO);
         }
+
         public IActionResult SignOut(string returnUrl = null)
         {
             _authService.SignOutAsync().GetAwaiter().GetResult();
@@ -56,29 +67,33 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpDTO signUpDTO)
         {
             var url = Url.Content(signUpDTO.ReturnUrl ?? "/");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == true)
             {
-                bool result = await _authService.SignUpAsync(signUpDTO);
+                var result = await _authService.SignUpAsync(signUpDTO);
 
-                if (result == true)
+                if (result.Succeeded == true)
                 {
                     return LocalRedirect("/");
                 }
-            }
 
-            TempData["error"] = "Sign Up Failed";
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
 
             return View();
         }
+
         public IActionResult AccessDenied()
         {
             return View();
         }
-
     }
 }
