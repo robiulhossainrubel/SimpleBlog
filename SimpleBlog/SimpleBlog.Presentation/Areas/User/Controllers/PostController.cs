@@ -7,7 +7,7 @@ using SimpleBlog.Presentation.ViewModel;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
 {
-    [Authorize(Policy = "CheckUser")]
+    [Authorize(Policy = "CheckBlockUser")]
     public class PostController : Controller
     {
         private readonly IPostService _postService;
@@ -25,73 +25,103 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             _signInManager = signInManager;
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(Post post)
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-
-            post.AppUserId = currentUser.Id;
-
-            _postService.Create(post);
-
-            TempData["message"] = "Post Pending For Approval";
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult Details(int id)
-        {
-            var postVm = new PostVM
+            try
             {
-                Post = _postService.Get(id)
-            };
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                post.AppUserId = currentUser.Id;
+                _postService.Create(post);
 
-            var isSignIn = _signInManager.IsSignedIn(HttpContext.User);
+                TempData["message"] = "Post Pending For Approval";
 
-            if (isSignIn == true)
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
             {
-                var currentUser = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
-                postVm.UserId = currentUser.Id;
+                TempData["error"] = ex.Message;
+
+                return View();
             }
 
-            return View(postVm);
         }
 
-        [Authorize]
+        [AllowAnonymous]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                var postVm = new PostVM
+                {
+                    Post = _postService.Get(id)
+                };
+
+                var isSignIn = _signInManager.IsSignedIn(HttpContext.User);
+
+                if (isSignIn == true)
+                {
+                    var currentUser = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
+                    postVm.UserId = currentUser.Id;
+                }
+
+                return View(postVm);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> Details(PostVM postVM)
         {
-            var comment = postVM.Comment;
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            try
+            {
+                var comment = postVM.Comment;
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            comment.AppUserId = currentUser.Id;
-            _commentService.Create(comment);
+                comment.AppUserId = currentUser.Id;
+                _commentService.Create(comment);
 
-            postVM.Post = _postService.Get(postVM.Comment.PostId);
+                postVM.Post = _postService.Get(postVM.Comment.PostId);
 
-            return View(postVM);
+                return View(postVM);
+            }
+            catch (Exception ex)
+            {
+                postVM.Post = _postService.Get(postVM.Comment.PostId);
+
+                TempData["error"] = ex.Message;
+
+                return View(postVM);
+            }
         }
 
-        [Authorize]
-        public async Task<IActionResult> React(int postId, int reactId, int? id)
+        public async Task<IActionResult> React(int postId, int reactId, string url)
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-
-            _reactionService.React(postId, reactId, currentUser.Id);
-
-            if (id != null)
+            try
             {
-                return LocalRedirect($"/User/Post/Details/{id}");
-            }
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            return RedirectToAction("Index", "Home");
+                _reactionService.React(postId, reactId, currentUser.Id);
+
+                return LocalRedirect(url);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return LocalRedirect(url);
+            }
         }
     }
 }

@@ -10,12 +10,14 @@ namespace SimpleBlog.Infrastructure.Data
         private readonly BlogDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppUserRole> _roleManager;
+
         public SeedData(BlogDbContext context, UserManager<AppUser> userManager, RoleManager<AppUserRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         public void Initialize()
         {
             try
@@ -48,7 +50,6 @@ namespace SimpleBlog.Infrastructure.Data
                 var user = _context.Users.FirstOrDefault(u => u.Email == "admin@gmail.com");
                 _userManager.AddToRoleAsync(user, "Admin").GetAwaiter().GetResult();
             }
-            return;
         }
     }
 }

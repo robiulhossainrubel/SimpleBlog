@@ -7,10 +7,12 @@ namespace SimpleBlog.Infrastructure.Services
     public class ReactionService : IReactionService
     {
         private readonly BlogDbContext _context;
+
         public ReactionService(BlogDbContext context)
         {
             _context = context;
         }
+
         public void Create(Reaction reaction)
         {
             try
@@ -18,9 +20,9 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Reactions.Add(reaction);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
 
@@ -33,31 +35,52 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Reactions.Remove(react);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
 
         public Reaction Get(int id)
         {
-            var reaction = _context.Reactions.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                var reaction = _context.Reactions.FirstOrDefault(x => x.Id == id);
 
-            return reaction;
+                return reaction;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public List<Reaction> GetAll()
         {
-            var reactionslist = _context.Reactions.ToList();
+            try
+            {
+                var reactionslist = _context.Reactions.ToList();
 
-            return reactionslist;
+                return reactionslist;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public Reaction GetByPostIdAndUserId(int postId, int userId)
         {
-            var reaction = _context.Reactions.FirstOrDefault(x => x.PostId == postId && x.AppUserId == userId);
+            try
+            {
+                var reaction = _context.Reactions.FirstOrDefault(x => x.PostId == postId && x.AppUserId == userId);
 
-            return reaction;
+                return reaction;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Update(Reaction reaction)
@@ -67,11 +90,12 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Reactions.Update(reaction);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
+
         public void React(int postId, int reactId, int userId)
         {
             try
@@ -103,9 +127,9 @@ namespace SimpleBlog.Infrastructure.Services
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
     }

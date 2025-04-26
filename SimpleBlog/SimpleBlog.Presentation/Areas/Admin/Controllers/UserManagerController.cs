@@ -18,33 +18,51 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            try
+            {
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            var users = _context.Users.Where(u => u.Id != currentUser.Id).ToList();
+                var users = _context.Users.Where(u => u.Id != currentUser.Id).ToList();
 
-            return View(users);
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return View();
+            }
         }
 
-        public async Task<IActionResult> BlockUnBlockAsync(int id)
+        public IActionResult BlockUnBlock(int id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
-
-            if (user != null)
+            try
             {
-                if (user.LockoutEnd != null && user.LockoutEnd > DateTime.Now)
+                var user = _context.Users.FirstOrDefault(u => u.Id == id);
+
+                if (user != null)
                 {
-                    user.LockoutEnd = null;
+                    if (user.LockoutEnd != null && user.LockoutEnd > DateTime.Now)
+                    {
+                        user.LockoutEnd = null;
+                    }
+                    else
+                    {
+                        user.LockoutEnd = DateTime.Now.AddYears(100);
+                    }
                 }
-                else
-                {
-                    user.LockoutEnd = DateTime.Now.AddYears(100);
-                }
+
+                _context.Users.Update(user);
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
             }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
 
-            _context.Users.Update(user);
-            _context.SaveChanges();
-
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); ;
+            }
         }
     }
 }

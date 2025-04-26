@@ -1,11 +1,18 @@
 ﻿@model List<Post>
 @{
     ViewData["Title"] = "Home Page";
-    var data = ViewData["status"];
+    var state = ViewData["status"];
     string activeInAll = "";
 }
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
+    </div>
+}
 <div class="btn-group p-2" role="group" aria-label="Basic example">
-    @if(data == null)
+    @if (state == null)
     {
         activeInAll = "active";
     }
@@ -17,9 +24,9 @@
     @foreach (var status in Enum.GetValues(typeof(Status)))
     {
         string active = "";
-        if(data != null)
+        if (state != null)
         {
-            if ((Status)data == (Status)status)
+            if ((Status)state == (Status)status)
             {
                 active = "active";
             }
@@ -27,23 +34,36 @@
         <a asp-controller="PostManage" asp-action="Index" asp-route-status="@((int)status)" class="btn btn-secondary @active">@status</a>
     }
 </div>
-@foreach (var post in Model)
+
+@if(Model != null)
 {
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h4 class="card-title">@post.AppUser.Name</h4>
-                    <h5 class="card-title">@post.Title</h5>
-                    <p class="card-text">@post.Body</p>
-                    <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
+    @if(Model.Count > 0)
+    {
+        @foreach (var post in Model)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">@post.AppUser.Name</h4>
+                            <h5 class="card-title">@post.Title</h5>
+                            <p class="card-text">@post.Body</p>
+                            <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
+                        </div>
+                    </div>
+                    <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom">Details</a>
                 </div>
             </div>
-            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom">Details</a>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            Not Post Found
         </div>
-    </div>
+    }
 }
 

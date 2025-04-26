@@ -1,31 +1,44 @@
 ﻿@model Post
-<form method="post">
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
-        </div>
-            <input asp-for="Id" hidden />
-            <input asp-for="Title" hidden />
-            <input asp-for="Body" hidden />
-            <input asp-for="Body" hidden />
-            <input asp-for="AppUserId" hidden />
-        <div class="col-md-8">
-            <div class="card-body">
-                    <h4 class="card-title">@Model.AppUser.Name</h4>
-                <h5 class="card-title">@Model.Title</h5>
-                <p class="card-text">@Model.Body</p>
-                <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.CreatedAt).ToString("mm")) mins ago</small></p>
+@{
+    ViewData["Title"] = "Post Details";
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
+    </div>
+}
+@if(Model != null)
+{
+    <form method="post">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
+                </div>
+                <input asp-for="Id" hidden />
+                <input asp-for="Title" hidden />
+                <input asp-for="Body" hidden />
+                <input asp-for="@Model.AppUser.Name" hidden />
+                <input asp-for="AppUserId" hidden />
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">@Model.AppUser.Name</h4>
+                        <h5 class="card-title">@Model.Title</h5>
+                        <p class="card-text">@Model.Body</p>
+                        <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.CreatedAt).ToString("mm")) mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostStatus" class="control-label"></label>
+                <select asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Status>()" class="form-control"></select>
+                <span asp-validation-for="PostStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group py-2">
+                <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="PostStatus" class="control-label"></label>
-            <select asp-for="PostStatus" asp-items="Html.GetEnumSelectList<Status>()" class="form-control"></select>
-            <span asp-validation-for="PostStatus" class="text-danger"></span>
-    </div>
-    <div class="form-group py-2">
-        <input type="submit" value="Submit" class="btn btn-primary" />
-    </div>
-</div>
-</form>
+    </form>
+}

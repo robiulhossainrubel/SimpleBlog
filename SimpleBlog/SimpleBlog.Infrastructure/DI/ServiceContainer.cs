@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
+using SimpleBlog.Infrastructure.DI.AuthFilter;
 using SimpleBlog.Infrastructure.Services;
 
 namespace SimpleBlog.Infrastructure.DI
@@ -34,6 +36,7 @@ namespace SimpleBlog.Infrastructure.DI
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IReactionService, ReactionService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IAuthorizationHandler, CheckBlockUserHandler>();
 
             return services;
         }

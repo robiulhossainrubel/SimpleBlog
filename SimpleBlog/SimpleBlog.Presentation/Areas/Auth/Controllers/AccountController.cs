@@ -33,24 +33,34 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
             {
                 return View();
             }
-
-            var currentUser = await _userManager.GetUserAsync(User);
-
-            var result = await _userManager.ChangePasswordAsync(currentUser, changePasswordDTO.OldPassword, changePasswordDTO.NewPassword);
-
-            if (result.Succeeded == false)
+            try
             {
-                foreach (var error in result.Errors)
+                var currentUser = await _userManager.GetUserAsync(User);
+
+                var result = await _userManager.ChangePasswordAsync(currentUser, changePasswordDTO.OldPassword, changePasswordDTO.NewPassword);
+
+                if (result.Succeeded == false)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+
+                    return View();
                 }
+
+                await _signInManager.RefreshSignInAsync(currentUser);
+
+                TempData["message"] = "Password Changed Successfully";
+
+                return LocalRedirect("/");
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
 
                 return View();
             }
-
-            await _signInManager.RefreshSignInAsync(currentUser);
-
-            return LocalRedirect("/");
         }
     }
 }

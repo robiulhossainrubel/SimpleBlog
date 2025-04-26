@@ -10,10 +10,12 @@ namespace SimpleBlog.Infrastructure.Services
     public class PostService : IPostService
     {
         private readonly BlogDbContext _context;
+
         public PostService(BlogDbContext context)
         {
             _context = context;
         }
+
         public void Create(Post post)
         {
             try
@@ -21,66 +23,90 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Posts.Add(post);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
 
         public Post Get(int id)
         {
-            var comment = _context.Comments.Where(x => x.PostId == id).Include(x => x.AppUser).ToList();
-            var post = _context.Posts.Include(x => x.Reaction).Include(x => x.AppUser).FirstOrDefault(x => x.Id == id);
+            try
+            {
+                var post = _context.Posts.Include(x => x.Reaction).Include(x => x.AppUser).Include(x => x.Comment).ThenInclude(x => x.AppUser).FirstOrDefault(x => x.Id == id);
 
-            post.Comment = comment;
-
-            return post;
+                return post;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public List<Post> GetAll(Expression<Func<Post, bool>>? expression = null)
         {
-            if (expression == null)
+            try
             {
-                var posts = _context.Posts.Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
+                if (expression == null)
+                {
+                    var posts = _context.Posts.Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
 
-                return posts;
+                    return posts;
+                }
+                else
+                {
+                    var posts = _context.Posts.Where(expression).Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
+
+                    return posts;
+                }
             }
-            else
+            catch
             {
-                var posts = _context.Posts.Where(expression).Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
-
-                return posts;
+                throw;
             }
         }
 
         public Pagination<Post> GetPaginate(int pageIndex, int pageSize)
         {
-            var posts = _context.Posts
-                .Where(x => x.PostStatus == Status.Approve)
-                .Include(p => p.Comment)
-                .Include(x => x.Reaction)
-                .Include(x => x.AppUser)
-                .OrderByDescending(p => p.CreatedAt)
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-            var pageData = new Pagination<Post>(posts, _context.Posts.Count(), pageIndex, pageSize);
+            try
+            {
+                var posts = _context.Posts
+                    .Where(x => x.PostStatus == Status.Approve)
+                    .Include(p => p.Comment)
+                    .Include(x => x.Reaction)
+                    .Include(x => x.AppUser)
+                    .OrderByDescending(p => p.CreatedAt)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                var pageData = new Pagination<Post>(posts, _context.Posts.Count(), pageIndex, pageSize);
 
-            return pageData;
+                return pageData;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public List<Post> TopPosts()
         {
-            var posts = _context.Posts
-                .Include(p => p.Comment)
-                .Include(x => x.Reaction)
-                .Include(x => x.AppUser)
-                .OrderByDescending(x => x.Reaction.Count() + x.Comment.Count())
-                .Take(5)
-                .ToList();
+            try
+            {
+                var posts = _context.Posts
+                    .Include(p => p.Comment)
+                    .Include(x => x.Reaction)
+                    .Include(x => x.AppUser)
+                    .OrderByDescending(x => x.Reaction.Count() + x.Comment.Count())
+                    .Take(5)
+                    .ToList();
 
-
-            return posts;
+                return posts;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Update(Post post)
@@ -90,9 +116,9 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Posts.Update(post);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
     }

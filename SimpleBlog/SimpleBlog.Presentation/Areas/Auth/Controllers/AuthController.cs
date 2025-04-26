@@ -26,33 +26,42 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInDTO signInDTO)
         {
-            var url = Url.Content(signInDTO.ReturnUrl ?? "~/");
-
-            if (ModelState.IsValid == true)
+            try
             {
-                var result = await _authService.SignInAsync(signInDTO);
+                var url = Url.Content(signInDTO.ReturnUrl ?? "~/");
 
-                if (result.Succeeded == true)
+                if (ModelState.IsValid == true)
                 {
-                    return LocalRedirect(url);
+                    var result = await _authService.SignInAsync(signInDTO);
+
+                    if (result.Succeeded == true)
+                    {
+                        return LocalRedirect(url);
+                    }
+
+                    if (result.IsLockedOut == true)
+                    {
+                        TempData["error"] = "You are Blocked";
+
+                        return View(signInDTO);
+                    }
                 }
 
-                if (result.IsLockedOut == true)
-                {
-                    TempData["error"] = "You are Blocked";
+                TempData["error"] = "Sign In Failed";
 
-                    return View(signInDTO);
-                }
+                return View(signInDTO);
             }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
 
-            TempData["error"] = "Sign In Failed";
-
-            return View(signInDTO);
+                return View(signInDTO);
+            }
         }
 
-        public IActionResult SignOut(string returnUrl = null)
+        public async Task<IActionResult> SignOutAsync(string returnUrl = null)
         {
-            _authService.SignOutAsync().GetAwaiter().GetResult();
+            await _authService.SignOutAsync();
 
             if (returnUrl != null)
             {
@@ -71,24 +80,33 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpDTO signUpDTO)
         {
-            var url = Url.Content(signUpDTO.ReturnUrl ?? "/");
-
-            if (ModelState.IsValid == true)
+            try
             {
-                var result = await _authService.SignUpAsync(signUpDTO);
+                var url = Url.Content(signUpDTO.ReturnUrl ?? "/");
 
-                if (result.Succeeded == true)
+                if (ModelState.IsValid == true)
                 {
-                    return LocalRedirect("/");
+                    var result = await _authService.SignUpAsync(signUpDTO);
+
+                    if (result.Succeeded == true)
+                    {
+                        return LocalRedirect("/");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                return View(signUpDTO);
             }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
 
-            return View();
+                return View(signUpDTO);
+            }
         }
 
         public IActionResult AccessDenied()

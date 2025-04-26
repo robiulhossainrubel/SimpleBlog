@@ -1,5 +1,13 @@
 ﻿@model PostVM
 
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
+    </div>
+}
+@if(Model != null)
+{
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
         <div class="col-md-4">
@@ -29,7 +37,7 @@
                             }
                         }
                     }
-                    <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="@((int)react)" asp-route-id="@Model.Post.Id" class="btn btn-outline-success @reactionFlag"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@Model.Post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
+                        <a asp-controller="Post" asp-action="React" asp-route-postId="@Model.Post.Id" asp-route-reactId="@((int)react)" asp-route-url="@($"/User/Post/Details/{@Model.Post.Id}")" class="btn btn-outline-success @reactionFlag"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@Model.Post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
                 }
             </div>
         </div>
@@ -96,3 +104,8 @@
         </div>
     </div>
 </div>
+}
+else
+{
+
+}

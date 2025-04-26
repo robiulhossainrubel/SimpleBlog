@@ -1,12 +1,6 @@
-﻿@using SimpleBlog.Application.DTOs
-@using SimpleBlog.Infrastructure.Services
-@model Pagination<Post>
+﻿@model Pagination<Post>
 @{
     ViewData["Title"] = "Home Page";
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-    var totalPageNo = Model.TotalPageNo;
-    var currentPageNo = Model.PageIndex;
 }
 @if (TempData["message"] != null)
 {
@@ -14,51 +8,75 @@
         @TempData["message"]
     </div>
 }
-<a class="link-info" asp-area="User" asp-controller="Post" asp-action="Create">Create New Post</a>
-@foreach (var post in Model.Items)
+@if (TempData["error"] != null)
 {
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h4 class="card-title">@post.AppUser.Name</h4>
-                    <h5 class="card-title">@post.Title</h5>
-                    <p class="card-text">@post.Body</p>
-                    <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
-                </div>
-                <div class="card-body">
-                    @foreach (var react in Enum.GetValues(typeof(ReactionType)))
-                    {
-                        string reactionFlag = "";
-
-                        if(Model.UserId != null)
-                        {
-                            var reaction = post.Reaction.FirstOrDefault(x => x.AppUserId == Model.UserId);
-
-                            if (reaction != null)
-                            {
-                                if (reaction.ReactType == (ReactionType)react)
-                                {
-                                    reactionFlag = "active";
-                                }
-                            }
-                        }
-                        <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="@((int)react)" class="btn btn-outline-success @reactionFlag"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
-                    }
-                </div>
-            </div>
-            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>
-        </div>
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
     </div>
 }
-<br />
+<a class="link-info" asp-area="User" asp-controller="Post" asp-action="Create">Create New Post</a>
+@if(Model!=null)
+{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var totalPageNo = Model.TotalPageNo;
+    var currentPageNo = Model.PageIndex;
 
-<a asp-action="Index" asp-route-pageNo="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">Previous</a>
-<a asp-action="Index" asp-route-pageNo="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">Next</a>
-<span>Page No : @currentPageNo of @totalPageNo</span>
+    @if(Model.Items.Count > 0 )
+    {
+        @foreach (var post in Model.Items)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">@post.AppUser.Name</h4>
+                            <h5 class="card-title">@post.Title</h5>
+                            <p class="card-text">@post.Body</p>
+                            <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var react in Enum.GetValues(typeof(ReactionType)))
+                            {
+                                string reactionFlag = "";
+
+                                if(Model.UserId != null)
+                                {
+                                    var reaction = post.Reaction.FirstOrDefault(x => x.AppUserId == Model.UserId);
+
+                                    if (reaction != null)
+                                    {
+                                        if (reaction.ReactType == (ReactionType)react)
+                                        {
+                                            reactionFlag = "active";
+                                        }
+                                    }
+                                }
+                                <a asp-controller="Post" asp-action="React" asp-route-postId="@post.Id" asp-route-reactId="@((int)react)" asp-route-url="@($"/")" class="btn btn-outline-success @reactionFlag"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
+                            }
+                        </div>
+                    </div>
+                    <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>
+                </div>
+            </div>
+        }
+        <br />
+
+        <a asp-action="Index" asp-route-pageNo="@(Model.PageIndex - 1)" class="btn btn-default @prevDisabled">Previous</a>
+        <a asp-action="Index" asp-route-pageNo="@(Model.PageIndex + 1)" class="btn btn-default @nextDisabled">Next</a>
+        <span>Page No : @currentPageNo of @totalPageNo</span>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            No Post Found
+        </div>
+    }
+}
+
 
 
 

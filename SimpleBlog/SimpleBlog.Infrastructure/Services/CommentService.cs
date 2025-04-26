@@ -8,10 +8,12 @@ namespace SimpleBlog.Infrastructure.Services
     public class CommentService : ICommentService
     {
         private readonly BlogDbContext _context;
+
         public CommentService(BlogDbContext context)
         {
             _context = context;
         }
+
         public void Create(Comment comment)
         {
             try
@@ -19,17 +21,24 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Comments.Add(comment);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
 
         public List<Comment> GetAll()
         {
-            var comments = _context.Comments.Include(c => c.AppUser).ToList();
+            try
+            {
+                var comments = _context.Comments.Include(c => c.AppUser).ToList();
 
-            return comments;
+                return comments;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

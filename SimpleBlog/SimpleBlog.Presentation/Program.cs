@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
 using SimpleBlog.Infrastructure.DI;
-using SimpleBlog.Presentation.RD;
+using SimpleBlog.Infrastructure.DI.AuthFilter;
 
 namespace SimpleBlog.Presentation
 {
@@ -8,41 +7,47 @@ namespace SimpleBlog.Presentation
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddInfrastructureService(builder.Configuration);
-            builder.Services.AddAuthorization(option =>
+            try
             {
-                option.AddPolicy("CheckUser", policy => policy.Requirements.Add(new CheckUser()));
-            });
-            builder.Services.AddScoped<IAuthorizationHandler, CheckUserHandler>();
+                var builder = WebApplication.CreateBuilder(args);
 
-            var app = builder.Build();
+                // Add services to the container.
+                builder.Services.AddControllersWithViews();
+                builder.Services.AddInfrastructureService(builder.Configuration);
+                builder.Services.AddAuthorization(option =>
+                {
+                    option.AddPolicy("CheckBlockUser", policy => policy.Requirements.Add(new CheckBlockUser()));
+                });
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                var app = builder.Build();
+
+                // Configure the HTTP request pipeline.
+                if (!app.Environment.IsDevelopment())
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    app.UseHsts();
+                }
+
+                app.UseDataSeed();
+
+                app.UseHttpsRedirection();
+                app.UseRouting();
+
+                app.UseAuthorization();
+
+                app.MapStaticAssets();
+                app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}")
+                    .WithStaticAssets();
+
+                app.Run();
             }
-
-            app.UseDataSeed();
-
-            app.UseHttpsRedirection();
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{area=User}/{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
-
-            app.Run();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

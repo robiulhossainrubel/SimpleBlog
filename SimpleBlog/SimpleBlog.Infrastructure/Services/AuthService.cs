@@ -9,16 +9,25 @@ namespace SimpleBlog.Infrastructure.Services
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+
         public AuthService(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
         }
+
         public async Task<SignInResult> SignInAsync(SignInDTO signInDTO)
         {
-            var result = await _signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
+            try
+            {
+                var result = await _signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public Task SignOutAsync()
@@ -28,26 +37,33 @@ namespace SimpleBlog.Infrastructure.Services
 
         public async Task<IdentityResult> SignUpAsync(SignUpDTO signUpDTO)
         {
-            var user = new AppUser
+            try
             {
-                Name = signUpDTO.Name,
-                Email = signUpDTO.Email,
-                UserName = signUpDTO.Email,
-                NormalizedUserName = signUpDTO.Name,
-                Role = signUpDTO.Role ?? "User"
-            };
+                var user = new AppUser
+                {
+                    Name = signUpDTO.Name,
+                    Email = signUpDTO.Email,
+                    UserName = signUpDTO.Email,
+                    NormalizedUserName = signUpDTO.Name,
+                    Role = signUpDTO.Role ?? "User"
+                };
 
-            var result = await _userManager.CreateAsync(user, signUpDTO.Password);
-            await _userManager.AddToRoleAsync(user, user.Role);
+                var result = await _userManager.CreateAsync(user, signUpDTO.Password);
+                await _userManager.AddToRoleAsync(user, user.Role);
 
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return result;
+                }
 
                 return result;
             }
-
-            return result;
+            catch
+            {
+                throw;
+            }
         }
     }
 }

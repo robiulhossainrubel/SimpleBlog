@@ -29,6 +29,7 @@
             }
         }
         public List<T> Items { get; private set; }
+
         public Pagination(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;

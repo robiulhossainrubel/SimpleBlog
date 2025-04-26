@@ -17,31 +17,67 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var posts = _postService.GetAll(x => x.PostStatus != Status.Approve).ToList();
+            try
+            {
+                var posts = _postService.GetAll(x => x.PostStatus != Status.Approve).ToList();
 
-            return View(posts);
+                return View(posts);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return View();
+            }
         }
 
         public IActionResult Details(int id)
         {
-            var post = _postService.Get(id);
+            try
+            {
+                var post = _postService.Get(id);
 
-            return View(post);
+                return View(post);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return View();
+            }
         }
 
         [HttpPost]
         public IActionResult Details(Post post)
         {
-            _postService.Update(post);
+            try
+            {
+                _postService.Update(post);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return View(post);
+            }
         }
 
         public IActionResult TopPosts()
         {
-            var topPosts = _postService.TopPosts();
+            try
+            {
+                var topPosts = _postService.TopPosts();
 
-            return View(topPosts);
+                return View(topPosts);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return View();
+            }
         }
     }
 }

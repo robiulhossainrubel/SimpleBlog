@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -19,21 +18,30 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
 
         public async Task<IActionResult> Index(int? status)
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-
-            if (status == null)
+            try
             {
-                var posts = _postService.GetAll(x => x.AppUserId == user.Id);
+                var user = await _userManager.GetUserAsync(HttpContext.User);
 
-                return View(posts);
+                if (status == null)
+                {
+                    var posts = _postService.GetAll(x => x.AppUserId == user.Id);
+
+                    return View(posts);
+                }
+                else
+                {
+                    ViewData["status"] = status;
+
+                    var posts = _postService.GetAll(x => x.AppUserId == user.Id && x.PostStatus == (Status)status);
+
+                    return View(posts);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewData["status"] = status;
+                TempData["error"] = ex.Message;
 
-                var posts = _postService.GetAll(x => x.AppUserId == user.Id && x.PostStatus == (Status)status);
-
-                return View(posts);
+                return View();
             }
         }
     }

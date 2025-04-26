@@ -2,28 +2,52 @@
 @{
     ViewData["Title"] = "Top Posts";
 }
-@foreach (var post in Model)
+
+@if (TempData["error"] != null)
 {
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h4 class="card-title">@post.AppUser.Name</h4>
-                    <h5 class="card-title">@post.Title</h5>
-                    <p class="card-text">@post.Body</p>
-                    <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
-                </div>
-                <div class="card-body">
-                    @foreach (var react in Enum.GetValues(typeof(ReactionType)))
-                    {
-                        <a class="btn btn-outline-success"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
-                    }
-                </div>
-            </div>
-            <a asp-area="User" asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>
-        </div>
+    <div class="alert alert-danger" role="alert">
+        @TempData["error"]
     </div>
+}
+
+@if(Model != null)
+{
+    @if(Model.Count > 0)
+    {
+        @foreach (var post in Model)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://placehold.co/400x600" class="img-fluid rounded-top-0" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">@post.AppUser.Name</h4>
+                            <h5 class="card-title">@post.Title</h5>
+                            <p class="card-text">@post.Body</p>
+                            <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - @post.CreatedAt).ToString("mm")) mins ago</small></p>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var react in Enum.GetValues(typeof(ReactionType)))
+                            {
+                                <a class="btn btn-outline-success"><img src="~/@($"{@react}.png")" style="height:25px;width:25px" />(@post.Reaction.Where(x => x.ReactType == (ReactionType)react).Count())</a>
+                            }
+                        </div>
+                    </div>
+                    <a asp-area="User" asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-primary rounded-bottom"><i class="bi bi-chat-left-dots-fill"></i> Comment (@post.Comment.Count)</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            No Post Found
+        </div>
+    }
+}
+else
+{
+    
 }

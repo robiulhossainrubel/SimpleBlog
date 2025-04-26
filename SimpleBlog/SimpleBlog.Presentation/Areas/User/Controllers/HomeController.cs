@@ -21,18 +21,26 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
 
         public IActionResult Index(int? pageNo)
         {
-            int pageSize = 5;
-
-            var posts = _postService.GetPaginate(pageNo ?? 1, pageSize);
-            var isSignIn = _signInManager.IsSignedIn(HttpContext.User);
-
-            if (isSignIn == true)
+            try
             {
-                var currentUser = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
-                posts.UserId = currentUser.Id;
-            }
+                int pageSize = 5;
 
-            return View(posts);
+                var posts = _postService.GetPaginate(pageNo ?? 1, pageSize);
+                var isSignIn = _signInManager.IsSignedIn(HttpContext.User);
+
+                if (isSignIn == true)
+                {
+                    var currentUser = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
+                    posts.UserId = currentUser.Id;
+                }
+                return View(posts);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = ex.Message;
+
+                return View();
+            }
         }
 
         public IActionResult Privacy()
