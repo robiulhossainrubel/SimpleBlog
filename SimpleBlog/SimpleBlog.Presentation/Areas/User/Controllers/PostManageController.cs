@@ -9,11 +9,13 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
     {
         private readonly IPostService _postService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ILogger<PostManageController> _logger;
 
-        public PostManageController(IPostService postService, UserManager<AppUser> userManager)
+        public PostManageController(IPostService postService, UserManager<AppUser> userManager, ILogger<PostManageController> logger)
         {
             _postService = postService;
             _userManager = userManager;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index(int? status)
@@ -39,7 +41,8 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }

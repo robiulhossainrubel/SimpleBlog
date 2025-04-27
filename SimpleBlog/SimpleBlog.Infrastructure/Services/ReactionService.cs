@@ -20,7 +20,7 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Reactions.Add(reaction);
                 _context.SaveChanges();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -35,7 +35,7 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Reactions.Remove(react);
                 _context.SaveChanges();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -49,7 +49,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return reaction;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -63,7 +63,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return reactionslist;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -77,7 +77,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return reaction;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -90,7 +90,7 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Reactions.Update(reaction);
                 _context.SaveChanges();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -127,7 +127,7 @@ namespace SimpleBlog.Infrastructure.Services
                     }
                 }
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }

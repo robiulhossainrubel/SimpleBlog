@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Domain.Entities;
+using SimpleBlog.Presentation.Areas.User.Controllers;
 
 namespace SimpleBlog.Presentation.Areas.Auth.Controllers
 {
@@ -9,11 +10,14 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -57,7 +61,8 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }

@@ -7,10 +7,12 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, ILogger<AuthController> logger)
         {
             _authService = authService;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -53,7 +55,8 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View(signInDTO);
             }
@@ -103,7 +106,8 @@ namespace SimpleBlog.Presentation.Areas.Auth.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View(signUpDTO);
             }

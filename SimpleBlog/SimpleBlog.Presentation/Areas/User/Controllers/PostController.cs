@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Presentation.ViewModel;
@@ -15,14 +16,16 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         private readonly ICommentService _commentService;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ILogger<PostController> _logger;
 
-        public PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public PostController(IPostService postService, IReactionService reactionService, ICommentService commentService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<PostController> logger)
         {
             _postService = postService;
             _reactionService = reactionService;
             _commentService = commentService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         public IActionResult Create()
@@ -31,21 +34,29 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Post post)
+        public async Task<IActionResult> Create(PostDTO post)
         {
             try
             {
-                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-                post.AppUserId = currentUser.Id;
-                _postService.Create(post);
+                if (ModelState.IsValid == true)
+                {
+                    var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                    post.AppUserId = currentUser.Id;
+                    _postService.Create(post);
 
-                TempData["message"] = "Post Pending For Approval";
+                    TempData["message"] = "Post Pending For Approval";
 
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View(post);
+                }
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }
@@ -74,7 +85,8 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -86,21 +98,31 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
         {
             try
             {
-                var comment = postVM.Comment;
-                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                if (ModelState.IsValid)
+                {
+                    var comment = postVM.Comment;
+                    var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-                comment.AppUserId = currentUser.Id;
-                _commentService.Create(comment);
+                    comment.AppUserId = currentUser.Id;
+                    _commentService.Create(comment);
 
-                postVM.Post = _postService.Get(postVM.Comment.PostId);
+                    postVM.Post = _postService.Get(postVM.Comment.PostId);
 
-                return View(postVM);
+                    return View(postVM);
+                }
+                else
+                {
+                    postVM.Post = _postService.Get(postVM.Comment.PostId);
+
+                    return View(postVM);
+                }
             }
             catch (Exception ex)
             {
                 postVM.Post = _postService.Get(postVM.Comment.PostId);
 
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View(postVM);
             }
@@ -118,7 +140,8 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return LocalRedirect(url);
             }

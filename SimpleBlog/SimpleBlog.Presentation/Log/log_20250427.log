@@ -1,0 +1,1032 @@
+2025-04-27 18:49:23  [DBG] [/] An 'IServiceProvider' was created for internal use by Entity Framework.
+2025-04-27 18:49:23  [INF] [/] User profile is available. Using 'C:\Users\OPL-PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-04-27 18:49:23  [DBG] [/] The index {'UserId'} was not created on entity type 'IdentityUserRole<int>' as the properties are already covered by the index {'UserId', 'RoleId'}.
+2025-04-27 18:49:23  [DBG] [/] The index {'UserId'} was not created on entity type 'IdentityUserToken<int>' as the properties are already covered by the index {'UserId', 'LoginProvider', 'Name'}.
+2025-04-27 18:49:24  [DBG] [/] Entity Framework Core 9.0.4 initialized 'BlogDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:9.0.4' with options: EngineType=SqlServer 
+2025-04-27 18:49:24  [DBG] [/] Creating DbConnection.
+2025-04-27 18:49:24  [DBG] [/] Created DbConnection. (21ms).
+2025-04-27 18:49:24  [DBG] [/] Opening connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Opened connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Creating DbCommand for 'ExecuteNonQuery'.
+2025-04-27 18:49:24  [DBG] [/] Created DbCommand for 'ExecuteNonQuery' (2ms).
+2025-04-27 18:49:24  [DBG] [/] Initialized DbCommand for 'ExecuteNonQuery' (6ms).
+2025-04-27 18:49:24  [DBG] [/] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-04-27 18:49:24  [INF] [/] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-04-27 18:49:24  [DBG] [/] Closing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Closed connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS' (6ms).
+2025-04-27 18:49:24  [DBG] [/] Creating DbCommand for 'ExecuteScalar'.
+2025-04-27 18:49:24  [DBG] [/] Created DbCommand for 'ExecuteScalar' (2ms).
+2025-04-27 18:49:24  [DBG] [/] Initialized DbCommand for 'ExecuteScalar' (3ms).
+2025-04-27 18:49:24  [DBG] [/] Opening connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Opened connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-04-27 18:49:24  [INF] [/] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-04-27 18:49:24  [DBG] [/] Closing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Closed connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS' (1ms).
+2025-04-27 18:49:24  [DBG] [/] Opening connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Opened connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Creating DbCommand for 'ExecuteReader'.
+2025-04-27 18:49:24  [DBG] [/] Created DbCommand for 'ExecuteReader' (0ms).
+2025-04-27 18:49:24  [DBG] [/] Initialized DbCommand for 'ExecuteReader' (1ms).
+2025-04-27 18:49:24  [DBG] [/] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-04-27 18:49:24  [INF] [/] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-04-27 18:49:24  [DBG] [/] Closing data reader to 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] A data reader for 'SimpleBlogDb' on server '.\SQLEXPRESS' is being disposed after spending 2ms reading results.
+2025-04-27 18:49:24  [DBG] [/] Closing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Closed connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS' (0ms).
+2025-04-27 18:49:24  [DBG] [/] Compiling query expression: 
+'DbSet<AppUserRole>()
+    .FirstOrDefault(r => r.NormalizedName == __normalizedName_0)'
+2025-04-27 18:49:24  [DBG] [/] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync<AppUserRole>(
+    asyncEnumerable: SingleQueryingEnumerable.Create<AppUserRole>(
+        relationalQueryContext: (RelationalQueryContext)queryContext, 
+        relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: AppUserRole.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: AppUserRole.ConcurrencyStamp (string) Concurrency, 1], [Property: AppUserRole.Name (string) MaxLength(256), 2], [Property: AppUserRole.NormalizedName (string) Index MaxLength(256), 3] }
+            SELECT TOP(1) a.Id, a.ConcurrencyStamp, a.Name, a.NormalizedName
+            FROM AspNetRoles AS a
+            WHERE a.NormalizedName == @__normalizedName_0) | Resolver: c => new RelationalCommandCache(
+            c.Dependencies.MemoryCache, 
+            c.RelationalDependencies.QuerySqlGeneratorFactory, 
+            c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+            Projection Mapping:
+                EmptyProjectionMember -> Dictionary<IProperty, int> { [Property: AppUserRole.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: AppUserRole.ConcurrencyStamp (string) Concurrency, 1], [Property: AppUserRole.Name (string) MaxLength(256), 2], [Property: AppUserRole.NormalizedName (string) Index MaxLength(256), 3] }
+            SELECT TOP(1) a.Id, a.ConcurrencyStamp, a.Name, a.NormalizedName
+            FROM AspNetRoles AS a
+            WHERE a.NormalizedName == @__normalizedName_0, 
+            False, 
+            new HashSet<string>(
+                new string[]{ }, 
+                StringComparer.Ordinal
+            )
+        )].GetRelationalCommandTemplate(parameters), 
+        readerColumns: null, 
+        shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+        {
+            AppUserRole entity;
+            entity = 
+            {
+                MaterializationContext materializationContext1;
+                IEntityType entityType1;
+                AppUserRole instance1;
+                InternalEntityEntry entry1;
+                bool hasNullKey1;
+                materializationContext1 = new MaterializationContext(
+                    [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                    queryContext.Context
+                );
+                instance1 = default(AppUserRole);
+                entry1 = queryContext.TryGetEntry(
+                    key: [LIFTABLE Constant: Key: AppUserRole.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUserRole").FindPrimaryKey()], 
+                    keyValues: new object[]{ (object)dataReader.GetInt32(0) }, 
+                    throwOnNullKey: True, 
+                    hasNullKey: hasNullKey1);
+                !(hasNullKey1) ? entry1 != default(InternalEntityEntry) ? 
+                {
+                    entityType1 = entry1.EntityType;
+                    return instance1 = (AppUserRole)entry1.Entity;
+                } : 
+                {
+                    ISnapshot shadowSnapshot1;
+                    shadowSnapshot1 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                    entityType1 = [LIFTABLE Constant: EntityType: AppUserRole | Resolver: namelessParameter{0} => namelessParameter{0}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUserRole")];
+                    instance1 = switch (entityType1)
+                    {
+                        case [LIFTABLE Constant: EntityType: AppUserRole | Resolver: namelessParameter{1} => namelessParameter{1}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUserRole")]: 
+                            {
+                                return 
+                                {
+                                    AppUserRole instance;
+                                    instance = new AppUserRole();
+                                    instance.<Id>k__BackingField = dataReader.GetInt32(0);
+                                    instance.<ConcurrencyStamp>k__BackingField = dataReader.IsDBNull(1) ? default(string) : dataReader.GetString(1);
+                                    instance.<Name>k__BackingField = dataReader.IsDBNull(2) ? default(string) : dataReader.GetString(2);
+                                    instance.<NormalizedName>k__BackingField = dataReader.IsDBNull(3) ? default(string) : dataReader.GetString(3);
+                                    (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                        context: materializationContext1.Context, 
+                                        entity: instance, 
+                                        queryTrackingBehavior: TrackAll, 
+                                        structuralType: [LIFTABLE Constant: EntityType: AppUserRole | Resolver: namelessParameter{2} => namelessParameter{2}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUserRole")]) : default(void);
+                                    return instance;
+                                }}
+                        default: 
+                            default(AppUserRole)
+                    }
+                    ;
+                    entry1 = entityType1 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                        entityType: entityType1, 
+                        entity: instance1, 
+                        snapshot: shadowSnapshot1);
+                    return instance1;
+                } : default(void);
+                return instance1;
+            };
+            return entity;
+        }, 
+        contextType: SimpleBlog.Infrastructure.Data.BlogDbContext, 
+        standAloneStateManager: False, 
+        detailedErrorsEnabled: False, 
+        threadSafetyChecksEnabled: True), 
+    cancellationToken: queryContext.CancellationToken)'
+2025-04-27 18:49:24  [DBG] [/] Opening connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Opened connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Creating DbCommand for 'ExecuteReader'.
+2025-04-27 18:49:24  [DBG] [/] Created DbCommand for 'ExecuteReader' (0ms).
+2025-04-27 18:49:24  [DBG] [/] Initialized DbCommand for 'ExecuteReader' (3ms).
+2025-04-27 18:49:24  [DBG] [/] Executing DbCommand [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-27 18:49:24  [INF] [/] Executed DbCommand (30ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-27 18:49:24  [DBG] [/] Context 'BlogDbContext' started tracking 'AppUserRole' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:24  [DBG] [/] Closing data reader to 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] A data reader for 'SimpleBlogDb' on server '.\SQLEXPRESS' is being disposed after spending 39ms reading results.
+2025-04-27 18:49:24  [DBG] [/] Closing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Closed connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS' (1ms).
+2025-04-27 18:49:24  [DBG] [/] 'BlogDbContext' disposed.
+2025-04-27 18:49:24  [DBG] [/] Disposing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:24  [DBG] [/] Disposed connection to database '' on server '' (1ms).
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/Views/Approve/Details.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/Views/Approve/Index.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/Views/Approve/TopPosts.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/Views/UserManager/Index.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/Views/_ViewImports.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/Views/_ViewStart.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Admin/_ViewImports.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/Account/ChangePassword.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/Auth/AccessDenied.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/Auth/SignIn.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/Auth/SignUp.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/_ValidationScriptsPartial.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/_ViewImports.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/Auth/Views/_ViewStart.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/Home/Index.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/Home/Privacy.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/PostManage/Index.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/Post/Create.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/Post/Details.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/_ViewImports.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Areas/User/Views/_ViewStart.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Views/Shared/Error.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Views/Shared/_LoginPartial.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Views/Shared/_ValidationScriptsPartial.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Views/_ViewImports.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Views/_ViewStart.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Initializing Razor view compiler with compiled view: '/Views/Shared/_Layout.cshtml'.
+2025-04-27 18:49:24  [DBG] [/] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2025-04-27 18:49:24  [DBG] [/] Hosting starting
+2025-04-27 18:49:24  [DBG] [/] Reading data from file 'C:\Users\OPL-PC\AppData\Local\ASP.NET\DataProtection-Keys\key-30dbfd90-d0cc-47d1-8bac-847a5ddb314a.xml'.
+2025-04-27 18:49:24  [DBG] [/] Found key {30dbfd90-d0cc-47d1-8bac-847a5ddb314a}.
+2025-04-27 18:49:24  [DBG] [/] Considering key {30dbfd90-d0cc-47d1-8bac-847a5ddb314a} with expiration date 2025-05-09 05:09:41Z as default key.
+2025-04-27 18:49:24  [DBG] [/] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-04-27 18:49:24  [DBG] [/] Decrypting secret element using Windows DPAPI.
+2025-04-27 18:49:24  [DBG] [/] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2025-04-27 18:49:24  [DBG] [/] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2025-04-27 18:49:24  [DBG] [/] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2025-04-27 18:49:24  [DBG] [/] Using key {30dbfd90-d0cc-47d1-8bac-847a5ddb314a} as the default key.
+2025-04-27 18:49:24  [DBG] [/] Key ring with default key {30dbfd90-d0cc-47d1-8bac-847a5ddb314a} was loaded during application startup.
+2025-04-27 18:49:24  [DBG] [/] Middleware loaded
+2025-04-27 18:49:24  [DBG] [/] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16531 B).
+2025-04-27 18:49:24  [DBG] [/] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2025-04-27 18:49:24  [DBG] [/] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+2025-04-27 18:49:24  [DBG] [/] Wildcard detected, all requests with hosts will be allowed.
+2025-04-27 18:49:24  [DBG] [/] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2025-04-27 18:49:25  [INF] [/] Now listening on: https://localhost:7266
+2025-04-27 18:49:25  [INF] [/] Now listening on: http://localhost:5272
+2025-04-27 18:49:25  [DBG] [/] Loaded hosting startup assembly SimpleBlog.Presentation
+2025-04-27 18:49:25  [DBG] [/] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2025-04-27 18:49:25  [DBG] [/] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2025-04-27 18:49:25  [DBG] [/] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2025-04-27 18:49:25  [DBG] [/] Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-04-27 18:49:25  [DBG] [/] Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2025-04-27 18:49:25  [INF] [/] Application started. Press Ctrl+C to shut down.
+2025-04-27 18:49:25  [INF] [/] Hosting environment: Development
+2025-04-27 18:49:25  [INF] [/] Content root path: C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation
+2025-04-27 18:49:25  [DBG] [/] Hosting started
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2J" accepted.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2I" accepted.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2J" started.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2I" started.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2I" received FIN.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2J" received FIN.
+2025-04-27 18:49:25  [DBG] [/] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2025-04-27 18:49:25  [DBG] [/] Failed to authenticate HTTPS connection.
+System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2I" stopped.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2J" stopped.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2I" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2J" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2K" accepted.
+2025-04-27 18:49:25  [DBG] [/] Connection id "0HNC5H7OAHB2K" started.
+2025-04-27 18:49:25  [DBG] [/] Connection 0HNC5H7OAHB2K established using the following protocol: "Tls13"
+2025-04-27 18:49:25  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/ - null null
+2025-04-27 18:49:25  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:25  [DBG] [/] 2 candidate(s) found for the request path '/'
+2025-04-27 18:49:25  [DBG] [/] Endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)' with route pattern '{area=User}/{controller=Home}/{action=Index}/{id?}' is valid for the request path '/'
+2025-04-27 18:49:25  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' was rejected by constraint 'path':'Microsoft.AspNetCore.Builder.StaticAssetDevelopmentRuntimeHandler+FileExistsConstraint' with value 'null' for the request path '/'
+2025-04-27 18:49:25  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is not valid for the request path '/'
+2025-04-27 18:49:25  [DBG] [/] Request matched endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)'
+2025-04-27 18:49:25  [INF] [/] Executing endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)'
+2025-04-27 18:49:25  [INF] [/] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.Nullable`1[System.Int32]) on controller SimpleBlog.Presentation.Areas.User.Controllers.HomeController (SimpleBlog.Presentation).
+2025-04-27 18:49:25  [DBG] [/] Execution plan of authorization filters (in the following order): ["None"]
+2025-04-27 18:49:25  [DBG] [/] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-04-27 18:49:25  [DBG] [/] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+2025-04-27 18:49:25  [DBG] [/] Execution plan of exception filters (in the following order): ["None"]
+2025-04-27 18:49:25  [DBG] [/] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+2025-04-27 18:49:25  [DBG] [/] Executing controller factory for controller SimpleBlog.Presentation.Areas.User.Controllers.HomeController (SimpleBlog.Presentation)
+2025-04-27 18:49:25  [DBG] [/] Executed controller factory for controller SimpleBlog.Presentation.Areas.User.Controllers.HomeController (SimpleBlog.Presentation)
+2025-04-27 18:49:25  [DBG] [/] Attempting to bind parameter 'pageNo' of type 'System.Nullable`1[System.Int32]' ...
+2025-04-27 18:49:25  [DBG] [/] Attempting to bind parameter 'pageNo' of type 'System.Nullable`1[System.Int32]' using the name '' in request data ...
+2025-04-27 18:49:25  [DBG] [/] Could not find a value in the request with name '' for binding parameter 'pageNo' of type 'System.Nullable`1[System.Int32]'.
+2025-04-27 18:49:25  [DBG] [/] Done attempting to bind parameter 'pageNo' of type 'System.Nullable`1[System.Int32]'.
+2025-04-27 18:49:25  [DBG] [/] Done attempting to bind parameter 'pageNo' of type 'System.Nullable`1[System.Int32]'.
+2025-04-27 18:49:25  [DBG] [/] Attempting to validate the bound parameter 'pageNo' of type 'System.Nullable`1[System.Int32]' ...
+2025-04-27 18:49:25  [DBG] [/] Done attempting to validate the bound parameter 'pageNo' of type 'System.Nullable`1[System.Int32]'.
+2025-04-27 18:49:25  [DBG] [/] Entity Framework Core 9.0.4 initialized 'BlogDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:9.0.4' with options: EngineType=SqlServer 
+2025-04-27 18:49:25  [DBG] [/] Compiling query expression: 
+'DbSet<Post>()
+    .Where(x => (int)x.PostStatus == 10)
+    .Include(p => p.Comment)
+    .Include(x => x.Reaction)
+    .Include(x => x.AppUser)
+    .OrderByDescending(p => p.CreatedAt)
+    .Skip(__p_0)
+    .Take(__p_1)'
+2025-04-27 18:49:25  [DBG] [/] Including navigation: 'Post.Comment'.
+2025-04-27 18:49:25  [DBG] [/] Including navigation: 'Post.Reaction'.
+2025-04-27 18:49:25  [DBG] [/] Including navigation: 'Post.AppUser'.
+2025-04-27 18:49:25  [WRN] [/] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-04-27 18:49:25  [DBG] [/] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<Post>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Client Projections:
+            0 -> Dictionary<IProperty, int> { [Property: Post.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Post.AppUserId (int) Required FK Index, 1], [Property: Post.Body (string) Required, 2], [Property: Post.CreatedAt (DateTime) Required, 3], [Property: Post.PostStatus (Status) Required, 4], [Property: Post.Title (string) Required, 5] }
+            1 -> 0
+            2 -> 6
+            3 -> Dictionary<IProperty, int> { [Property: Comment.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 7], [Property: Comment.AppUserId (int) Required FK Index, 8], [Property: Comment.PostId (int) Required FK Index, 9], [Property: Comment.Text (string) Required, 10], [Property: Comment.Time (DateTime) Required, 11] }
+            4 -> 7
+            5 -> Dictionary<IProperty, int> { [Property: Reaction.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 12], [Property: Reaction.AppUserId (int) Required, 13], [Property: Reaction.PostId (int) Required FK Index, 14], [Property: Reaction.ReactType (ReactionType) Required, 15] }
+            6 -> 12
+            7 -> Dictionary<IProperty, int> { [Property: AppUser.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 6], [Property: AppUser.AccessFailedCount (int) Required, 16], [Property: AppUser.ConcurrencyStamp (string) Concurrency, 17], [Property: AppUser.Email (string) MaxLength(256), 18], [Property: AppUser.EmailConfirmed (bool) Required, 19], [Property: AppUser.LockoutEnabled (bool) Required, 20], [Property: AppUser.LockoutEnd (DateTimeOffset?), 21], [Property: AppUser.Name (string) Required, 22], [Property: AppUser.NormalizedEmail (string) Index MaxLength(256), 23], [Property: AppUser.NormalizedUserName (string) Index MaxLength(256), 24], [Property: AppUser.PasswordHash (string), 25], [Property: AppUser.PhoneNumber (string), 26], [Property: AppUser.PhoneNumberConfirmed (bool) Required, 27], [Property: AppUser.Role (string) Required, 28], [Property: AppUser.SecurityStamp (string), 29], [Property: AppUser.TwoFactorEnabled (bool) Required, 30], [Property: AppUser.UserName (string) MaxLength(256), 31] }
+        SELECT p0.Id, p0.AppUserId, p0.Body, p0.CreatedAt, p0.PostStatus, p0.Title, a.Id, c.Id, c.AppUserId, c.PostId, c.Text, c.Time, r.Id, r.AppUserId, r.PostId, r.ReactType, a.AccessFailedCount, a.ConcurrencyStamp, a.Email, a.EmailConfirmed, a.LockoutEnabled, a.LockoutEnd, a.Name, a.NormalizedEmail, a.NormalizedUserName, a.PasswordHash, a.PhoneNumber, a.PhoneNumberConfirmed, a.Role, a.SecurityStamp, a.TwoFactorEnabled, a.UserName
+        FROM 
+        (
+            SELECT p.Id, p.AppUserId, p.Body, p.CreatedAt, p.PostStatus, p.Title
+            FROM Posts AS p
+            WHERE p.PostStatus == 10
+            ORDER BY p.CreatedAt DESC
+            OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+        ) AS p0
+        INNER JOIN AspNetUsers AS a ON p0.AppUserId == a.Id
+        LEFT JOIN Comments AS c ON p0.Id == c.PostId
+        LEFT JOIN Reactions AS r ON p0.Id == r.PostId
+        ORDER BY p0.CreatedAt DESC, p0.Id ASC, a.Id ASC, c.Id ASC) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Client Projections:
+            0 -> Dictionary<IProperty, int> { [Property: Post.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 0], [Property: Post.AppUserId (int) Required FK Index, 1], [Property: Post.Body (string) Required, 2], [Property: Post.CreatedAt (DateTime) Required, 3], [Property: Post.PostStatus (Status) Required, 4], [Property: Post.Title (string) Required, 5] }
+            1 -> 0
+            2 -> 6
+            3 -> Dictionary<IProperty, int> { [Property: Comment.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 7], [Property: Comment.AppUserId (int) Required FK Index, 8], [Property: Comment.PostId (int) Required FK Index, 9], [Property: Comment.Text (string) Required, 10], [Property: Comment.Time (DateTime) Required, 11] }
+            4 -> 7
+            5 -> Dictionary<IProperty, int> { [Property: Reaction.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 12], [Property: Reaction.AppUserId (int) Required, 13], [Property: Reaction.PostId (int) Required FK Index, 14], [Property: Reaction.ReactType (ReactionType) Required, 15] }
+            6 -> 12
+            7 -> Dictionary<IProperty, int> { [Property: AppUser.Id (int) Required PK AfterSave:Throw ValueGenerated.OnAdd, 6], [Property: AppUser.AccessFailedCount (int) Required, 16], [Property: AppUser.ConcurrencyStamp (string) Concurrency, 17], [Property: AppUser.Email (string) MaxLength(256), 18], [Property: AppUser.EmailConfirmed (bool) Required, 19], [Property: AppUser.LockoutEnabled (bool) Required, 20], [Property: AppUser.LockoutEnd (DateTimeOffset?), 21], [Property: AppUser.Name (string) Required, 22], [Property: AppUser.NormalizedEmail (string) Index MaxLength(256), 23], [Property: AppUser.NormalizedUserName (string) Index MaxLength(256), 24], [Property: AppUser.PasswordHash (string), 25], [Property: AppUser.PhoneNumber (string), 26], [Property: AppUser.PhoneNumberConfirmed (bool) Required, 27], [Property: AppUser.Role (string) Required, 28], [Property: AppUser.SecurityStamp (string), 29], [Property: AppUser.TwoFactorEnabled (bool) Required, 30], [Property: AppUser.UserName (string) MaxLength(256), 31] }
+        SELECT p0.Id, p0.AppUserId, p0.Body, p0.CreatedAt, p0.PostStatus, p0.Title, a.Id, c.Id, c.AppUserId, c.PostId, c.Text, c.Time, r.Id, r.AppUserId, r.PostId, r.ReactType, a.AccessFailedCount, a.ConcurrencyStamp, a.Email, a.EmailConfirmed, a.LockoutEnabled, a.LockoutEnd, a.Name, a.NormalizedEmail, a.NormalizedUserName, a.PasswordHash, a.PhoneNumber, a.PhoneNumberConfirmed, a.Role, a.SecurityStamp, a.TwoFactorEnabled, a.UserName
+        FROM 
+        (
+            SELECT p.Id, p.AppUserId, p.Body, p.CreatedAt, p.PostStatus, p.Title
+            FROM Posts AS p
+            WHERE p.PostStatus == 10
+            ORDER BY p.CreatedAt DESC
+            OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+        ) AS p0
+        INNER JOIN AspNetUsers AS a ON p0.AppUserId == a.Id
+        LEFT JOIN Comments AS c ON p0.Id == c.PostId
+        LEFT JOIN Reactions AS r ON p0.Id == r.PostId
+        ORDER BY p0.CreatedAt DESC, p0.Id ASC, a.Id ASC, c.Id ASC, 
+        False, 
+        new HashSet<string>(
+            new string[]{ }, 
+            StringComparer.Ordinal
+        )
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        resultContext.Values == null ? 
+        {
+            Post entity;
+            AppUser entity;
+            entity = 
+            {
+                MaterializationContext materializationContext1;
+                IEntityType entityType1;
+                Post instance1;
+                InternalEntityEntry entry1;
+                bool hasNullKey1;
+                materializationContext1 = new MaterializationContext(
+                    [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                    queryContext.Context
+                );
+                instance1 = default(Post);
+                entry1 = queryContext.TryGetEntry(
+                    key: [LIFTABLE Constant: Key: Post.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindPrimaryKey()], 
+                    keyValues: new object[]{ (object)dataReader.GetInt32(0) }, 
+                    throwOnNullKey: True, 
+                    hasNullKey: hasNullKey1);
+                !(hasNullKey1) ? entry1 != default(InternalEntityEntry) ? 
+                {
+                    entityType1 = entry1.EntityType;
+                    return instance1 = (Post)entry1.Entity;
+                } : 
+                {
+                    ISnapshot shadowSnapshot1;
+                    shadowSnapshot1 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                    entityType1 = [LIFTABLE Constant: EntityType: Post | Resolver: namelessParameter{0} => namelessParameter{0}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post")];
+                    instance1 = switch (entityType1)
+                    {
+                        case [LIFTABLE Constant: EntityType: Post | Resolver: namelessParameter{1} => namelessParameter{1}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post")]: 
+                            {
+                                return 
+                                {
+                                    Post instance;
+                                    instance = new Post();
+                                    instance.<Id>k__BackingField = dataReader.GetInt32(0);
+                                    instance.<AppUserId>k__BackingField = dataReader.GetInt32(1);
+                                    instance.<Body>k__BackingField = dataReader.GetString(2);
+                                    instance.<CreatedAt>k__BackingField = dataReader.GetDateTime(3);
+                                    instance.<PostStatus>k__BackingField = Invoke(((EnumToNumberConverter<Status, int>)((IReadOnlyProperty)[LIFTABLE Constant: Property: Post.PostStatus (Status) Required | Resolver: namelessParameter{2} => namelessParameter{2}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindProperty("PostStatus")]).GetTypeMapping().Converter).ConvertFromProviderTyped, dataReader.GetInt32(4));
+                                    instance.<Title>k__BackingField = dataReader.GetString(5);
+                                    (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                        context: materializationContext1.Context, 
+                                        entity: instance, 
+                                        queryTrackingBehavior: TrackAll, 
+                                        structuralType: [LIFTABLE Constant: EntityType: Post | Resolver: namelessParameter{3} => namelessParameter{3}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post")]) : default(void);
+                                    return instance;
+                                }}
+                        default: 
+                            default(Post)
+                    }
+                    ;
+                    entry1 = entityType1 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                        entityType: entityType1, 
+                        entity: instance1, 
+                        snapshot: shadowSnapshot1);
+                    return instance1;
+                } : default(void);
+                return instance1;
+            };
+            entity = 
+            {
+                MaterializationContext materializationContext4;
+                IEntityType entityType4;
+                AppUser instance4;
+                InternalEntityEntry entry4;
+                bool hasNullKey4;
+                materializationContext4 = new MaterializationContext(
+                    [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                    queryContext.Context
+                );
+                instance4 = default(AppUser);
+                entry4 = queryContext.TryGetEntry(
+                    key: [LIFTABLE Constant: Key: AppUser.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUser").FindPrimaryKey()], 
+                    keyValues: new object[]{ (object)dataReader.GetInt32(6) }, 
+                    throwOnNullKey: True, 
+                    hasNullKey: hasNullKey4);
+                !(hasNullKey4) ? entry4 != default(InternalEntityEntry) ? 
+                {
+                    entityType4 = entry4.EntityType;
+                    return instance4 = (AppUser)entry4.Entity;
+                } : 
+                {
+                    ISnapshot shadowSnapshot4;
+                    shadowSnapshot4 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                    entityType4 = [LIFTABLE Constant: EntityType: AppUser | Resolver: namelessParameter{4} => namelessParameter{4}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUser")];
+                    instance4 = switch (entityType4)
+                    {
+                        case [LIFTABLE Constant: EntityType: AppUser | Resolver: namelessParameter{5} => namelessParameter{5}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUser")]: 
+                            {
+                                return 
+                                {
+                                    AppUser instance;
+                                    instance = new AppUser();
+                                    instance.<Id>k__BackingField = dataReader.GetInt32(6);
+                                    instance.<AccessFailedCount>k__BackingField = dataReader.GetInt32(16);
+                                    instance.<ConcurrencyStamp>k__BackingField = dataReader.IsDBNull(17) ? default(string) : dataReader.GetString(17);
+                                    instance.<Email>k__BackingField = dataReader.IsDBNull(18) ? default(string) : dataReader.GetString(18);
+                                    instance.<EmailConfirmed>k__BackingField = dataReader.GetBoolean(19);
+                                    instance.<LockoutEnabled>k__BackingField = dataReader.GetBoolean(20);
+                                    instance.<LockoutEnd>k__BackingField = dataReader.IsDBNull(21) ? default(DateTimeOffset?) : (DateTimeOffset?)dataReader.GetFieldValue<DateTimeOffset>(21);
+                                    instance.<Name>k__BackingField = dataReader.GetString(22);
+                                    instance.<NormalizedEmail>k__BackingField = dataReader.IsDBNull(23) ? default(string) : dataReader.GetString(23);
+                                    instance.<NormalizedUserName>k__BackingField = dataReader.IsDBNull(24) ? default(string) : dataReader.GetString(24);
+                                    instance.<PasswordHash>k__BackingField = dataReader.IsDBNull(25) ? default(string) : dataReader.GetString(25);
+                                    instance.<PhoneNumber>k__BackingField = dataReader.IsDBNull(26) ? default(string) : dataReader.GetString(26);
+                                    instance.<PhoneNumberConfirmed>k__BackingField = dataReader.GetBoolean(27);
+                                    instance.<Role>k__BackingField = dataReader.GetString(28);
+                                    instance.<SecurityStamp>k__BackingField = dataReader.IsDBNull(29) ? default(string) : dataReader.GetString(29);
+                                    instance.<TwoFactorEnabled>k__BackingField = dataReader.GetBoolean(30);
+                                    instance.<UserName>k__BackingField = dataReader.IsDBNull(31) ? default(string) : dataReader.GetString(31);
+                                    (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                        context: materializationContext4.Context, 
+                                        entity: instance, 
+                                        queryTrackingBehavior: TrackAll, 
+                                        structuralType: [LIFTABLE Constant: EntityType: AppUser | Resolver: namelessParameter{6} => namelessParameter{6}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.AppUser")]) : default(void);
+                                    return instance;
+                                }}
+                        default: 
+                            default(AppUser)
+                    }
+                    ;
+                    entry4 = entityType4 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                        entityType: entityType4, 
+                        entity: instance4, 
+                        snapshot: shadowSnapshot4);
+                    return instance4;
+                } : default(void);
+                return instance4;
+            };
+            resultContext.Values = new object[]
+            { 
+                entity, 
+                entity 
+            };
+            ShaperProcessingExpressionVisitor.InitializeIncludeCollection<Post, Post>(
+                collectionId: 0, 
+                queryContext: queryContext, 
+                dbDataReader: dataReader, 
+                resultCoordinator: resultCoordinator, 
+                entity: (Post)(resultContext.Values[0]), 
+                parentIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+                { 
+                    (object)(int?)dataReader.GetInt32(0), 
+                    (object)(int?)dataReader.GetInt32(6) 
+                }], 
+                outerIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+                { 
+                    (object)(int?)dataReader.GetInt32(0), 
+                    (object)(int?)dataReader.GetInt32(6) 
+                }], 
+                navigation: [LIFTABLE Constant: Navigation: Post.Comment (List<Comment>) Collection ToDependent Comment Inverse: Post | Resolver: namelessParameter{7} => namelessParameter{7}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("Comment")], 
+                clrCollectionAccessor: [LIFTABLE Constant: ClrICollectionAccessor<Post, List<Comment>, Comment> | Resolver: namelessParameter{8} => namelessParameter{8}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("Comment").GetCollectionAccessor()], 
+                trackingQuery: True, 
+                setLoaded: True);
+            ShaperProcessingExpressionVisitor.InitializeIncludeCollection<Post, Post>(
+                collectionId: 1, 
+                queryContext: queryContext, 
+                dbDataReader: dataReader, 
+                resultCoordinator: resultCoordinator, 
+                entity: (Post)(resultContext.Values[0]), 
+                parentIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+                { 
+                    (object)(int?)dataReader.GetInt32(0), 
+                    (object)(int?)dataReader.GetInt32(6) 
+                }], 
+                outerIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+                { 
+                    (object)(int?)dataReader.GetInt32(0), 
+                    (object)(int?)dataReader.GetInt32(6), 
+                    (object)dataReader.IsDBNull(7) ? default(int?) : (int?)dataReader.GetInt32(7) 
+                }], 
+                navigation: [LIFTABLE Constant: Navigation: Post.Reaction (List<Reaction>) Collection ToDependent Reaction | Resolver: namelessParameter{9} => namelessParameter{9}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("Reaction")], 
+                clrCollectionAccessor: [LIFTABLE Constant: ClrICollectionAccessor<Post, List<Reaction>, Reaction> | Resolver: namelessParameter{10} => namelessParameter{10}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("Reaction").GetCollectionAccessor()], 
+                trackingQuery: True, 
+                setLoaded: True);
+            ShaperProcessingExpressionVisitor.IncludeReference<Post, Post, AppUser>(
+                queryContext: queryContext, 
+                entity: (Post)(resultContext.Values[0]), 
+                relatedEntity: (AppUser)(resultContext.Values[1]), 
+                navigation: [LIFTABLE Constant: Navigation: Post.AppUser (AppUser) ToPrincipal AppUser | Resolver: namelessParameter{11} => namelessParameter{11}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("AppUser")], 
+                inverseNavigation: default(INavigation), 
+                fixup: (namelessParameter{12}, namelessParameter{13}) => 
+                {
+                    return namelessParameter{12}.<AppUser>k__BackingField = namelessParameter{13};
+                }, 
+                trackingQuery: True);
+        } : default(void);
+        ShaperProcessingExpressionVisitor.PopulateIncludeCollection<Post, Comment>(
+            collectionId: 0, 
+            queryContext: queryContext, 
+            dbDataReader: dataReader, 
+            resultCoordinator: resultCoordinator, 
+            parentIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+            { 
+                (object)(int?)dataReader.GetInt32(0), 
+                (object)(int?)dataReader.GetInt32(6) 
+            }], 
+            outerIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+            { 
+                (object)(int?)dataReader.GetInt32(0), 
+                (object)(int?)dataReader.GetInt32(6) 
+            }], 
+            selfIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]{ (object)dataReader.IsDBNull(7) ? default(int?) : (int?)dataReader.GetInt32(7) }], 
+            parentIdentifierValueComparers: [LIFTABLE Constant: Func<object, object, bool>[] { Func<object, object, bool>, Func<object, object, bool> } | Resolver: _ => new Func<object, object, bool>[]
+            { 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right, 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right 
+            }], 
+            outerIdentifierValueComparers: [LIFTABLE Constant: Func<object, object, bool>[] { Func<object, object, bool>, Func<object, object, bool> } | Resolver: _ => new Func<object, object, bool>[]
+            { 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right, 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right 
+            }], 
+            selfIdentifierValueComparers: [LIFTABLE Constant: Func<object, object, bool>[] { Func<object, object, bool> } | Resolver: _ => new Func<object, object, bool>[]{ (left, right) => left == null ? right == null : right != null && (int)left == (int)right }], 
+            innerShaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+            {
+                Comment entity;
+                entity = 
+                {
+                    MaterializationContext materializationContext2;
+                    IEntityType entityType2;
+                    Comment instance2;
+                    InternalEntityEntry entry2;
+                    bool hasNullKey2;
+                    materializationContext2 = new MaterializationContext(
+                        [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                        queryContext.Context
+                    );
+                    instance2 = default(Comment);
+                    entry2 = queryContext.TryGetEntry(
+                        key: [LIFTABLE Constant: Key: Comment.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Comment").FindPrimaryKey()], 
+                        keyValues: new object[]{ dataReader.IsDBNull(7) ? default(object) : (object)dataReader.GetInt32(7) }, 
+                        throwOnNullKey: False, 
+                        hasNullKey: hasNullKey2);
+                    !(hasNullKey2) ? entry2 != default(InternalEntityEntry) ? 
+                    {
+                        entityType2 = entry2.EntityType;
+                        return instance2 = (Comment)entry2.Entity;
+                    } : 
+                    {
+                        ISnapshot shadowSnapshot2;
+                        shadowSnapshot2 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                        entityType2 = [LIFTABLE Constant: EntityType: Comment | Resolver: namelessParameter{14} => namelessParameter{14}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Comment")];
+                        instance2 = switch (entityType2)
+                        {
+                            case [LIFTABLE Constant: EntityType: Comment | Resolver: namelessParameter{15} => namelessParameter{15}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Comment")]: 
+                                {
+                                    return 
+                                    {
+                                        Comment instance;
+                                        instance = new Comment();
+                                        instance.<Id>k__BackingField = dataReader.IsDBNull(7) ? default(int) : dataReader.GetInt32(7);
+                                        instance.<AppUserId>k__BackingField = dataReader.IsDBNull(8) ? default(int) : dataReader.GetInt32(8);
+                                        instance.<PostId>k__BackingField = dataReader.IsDBNull(9) ? default(int) : dataReader.GetInt32(9);
+                                        instance.<Text>k__BackingField = dataReader.IsDBNull(10) ? default(string) : dataReader.GetString(10);
+                                        instance.<Time>k__BackingField = dataReader.IsDBNull(11) ? default(DateTime) : dataReader.GetDateTime(11);
+                                        (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                            context: materializationContext2.Context, 
+                                            entity: instance, 
+                                            queryTrackingBehavior: TrackAll, 
+                                            structuralType: [LIFTABLE Constant: EntityType: Comment | Resolver: namelessParameter{16} => namelessParameter{16}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Comment")]) : default(void);
+                                        return instance;
+                                    }}
+                            default: 
+                                default(Comment)
+                        }
+                        ;
+                        entry2 = entityType2 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                            entityType: entityType2, 
+                            entity: instance2, 
+                            snapshot: shadowSnapshot2);
+                        return instance2;
+                    } : default(void);
+                    return instance2;
+                };
+                return entity;
+            }, 
+            inverseNavigation: [LIFTABLE Constant: Navigation: Comment.Post (Post) ToPrincipal Post Inverse: Comment | Resolver: namelessParameter{17} => namelessParameter{17}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Comment").FindNavigation("Post")], 
+            fixup: (namelessParameter{18}, namelessParameter{19}) => 
+            {
+                [LIFTABLE Constant: ClrICollectionAccessor<Post, List<Comment>, Comment> | Resolver: namelessParameter{20} => namelessParameter{20}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("Comment").GetCollectionAccessor()].Add(
+                    entity: namelessParameter{18}, 
+                    value: namelessParameter{19}, 
+                    forMaterialization: True);
+                return namelessParameter{19}.<Post>k__BackingField = namelessParameter{18};
+            }, 
+            trackingQuery: True);
+        ShaperProcessingExpressionVisitor.PopulateIncludeCollection<Post, Reaction>(
+            collectionId: 1, 
+            queryContext: queryContext, 
+            dbDataReader: dataReader, 
+            resultCoordinator: resultCoordinator, 
+            parentIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+            { 
+                (object)(int?)dataReader.GetInt32(0), 
+                (object)(int?)dataReader.GetInt32(6) 
+            }], 
+            outerIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]
+            { 
+                (object)(int?)dataReader.GetInt32(0), 
+                (object)(int?)dataReader.GetInt32(6), 
+                (object)dataReader.IsDBNull(7) ? default(int?) : (int?)dataReader.GetInt32(7) 
+            }], 
+            selfIdentifier: [LIFTABLE Constant: Func<QueryContext, DbDataReader, object[]> | Resolver: _ => (queryContext, dataReader) => new object[]{ (object)dataReader.IsDBNull(12) ? default(int?) : (int?)dataReader.GetInt32(12) }], 
+            parentIdentifierValueComparers: [LIFTABLE Constant: Func<object, object, bool>[] { Func<object, object, bool>, Func<object, object, bool> } | Resolver: _ => new Func<object, object, bool>[]
+            { 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right, 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right 
+            }], 
+            outerIdentifierValueComparers: [LIFTABLE Constant: Func<object, object, bool>[] { Func<object, object, bool>, Func<object, object, bool>, Func<object, object, bool> } | Resolver: _ => new Func<object, object, bool>[]
+            { 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right, 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right, 
+                (left, right) => left == null ? right == null : right != null && (int)left == (int)right 
+            }], 
+            selfIdentifierValueComparers: [LIFTABLE Constant: Func<object, object, bool>[] { Func<object, object, bool> } | Resolver: _ => new Func<object, object, bool>[]{ (left, right) => left == null ? right == null : right != null && (int)left == (int)right }], 
+            innerShaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+            {
+                Reaction entity;
+                entity = 
+                {
+                    MaterializationContext materializationContext3;
+                    IEntityType entityType3;
+                    Reaction instance3;
+                    InternalEntityEntry entry3;
+                    bool hasNullKey3;
+                    materializationContext3 = new MaterializationContext(
+                        [LIFTABLE Constant: ValueBuffer | Resolver: _ => (object)ValueBuffer.Empty], 
+                        queryContext.Context
+                    );
+                    instance3 = default(Reaction);
+                    entry3 = queryContext.TryGetEntry(
+                        key: [LIFTABLE Constant: Key: Reaction.Id PK | Resolver: c => c.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Reaction").FindPrimaryKey()], 
+                        keyValues: new object[]{ dataReader.IsDBNull(12) ? default(object) : (object)dataReader.GetInt32(12) }, 
+                        throwOnNullKey: False, 
+                        hasNullKey: hasNullKey3);
+                    !(hasNullKey3) ? entry3 != default(InternalEntityEntry) ? 
+                    {
+                        entityType3 = entry3.EntityType;
+                        return instance3 = (Reaction)entry3.Entity;
+                    } : 
+                    {
+                        ISnapshot shadowSnapshot3;
+                        shadowSnapshot3 = [LIFTABLE Constant: Snapshot | Resolver: _ => Snapshot.Empty];
+                        entityType3 = [LIFTABLE Constant: EntityType: Reaction | Resolver: namelessParameter{21} => namelessParameter{21}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Reaction")];
+                        instance3 = switch (entityType3)
+                        {
+                            case [LIFTABLE Constant: EntityType: Reaction | Resolver: namelessParameter{22} => namelessParameter{22}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Reaction")]: 
+                                {
+                                    return 
+                                    {
+                                        Reaction instance;
+                                        instance = new Reaction();
+                                        instance.<Id>k__BackingField = dataReader.IsDBNull(12) ? default(int) : dataReader.GetInt32(12);
+                                        instance.<AppUserId>k__BackingField = dataReader.IsDBNull(13) ? default(int) : dataReader.GetInt32(13);
+                                        instance.<PostId>k__BackingField = dataReader.IsDBNull(14) ? default(int) : dataReader.GetInt32(14);
+                                        instance.<ReactType>k__BackingField = dataReader.IsDBNull(15) ? default(ReactionType) : Invoke(((EnumToNumberConverter<ReactionType, int>)((IReadOnlyProperty)[LIFTABLE Constant: Property: Reaction.ReactType (ReactionType) Required | Resolver: namelessParameter{23} => namelessParameter{23}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Reaction").FindProperty("ReactType")]).GetTypeMapping().Converter).ConvertFromProviderTyped, dataReader.GetInt32(15));
+                                        (instance is IInjectableService) ? ((IInjectableService)instance).Injected(
+                                            context: materializationContext3.Context, 
+                                            entity: instance, 
+                                            queryTrackingBehavior: TrackAll, 
+                                            structuralType: [LIFTABLE Constant: EntityType: Reaction | Resolver: namelessParameter{24} => namelessParameter{24}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Reaction")]) : default(void);
+                                        return instance;
+                                    }}
+                            default: 
+                                default(Reaction)
+                        }
+                        ;
+                        entry3 = entityType3 == default(IEntityType) ? default(InternalEntityEntry) : queryContext.StartTracking(
+                            entityType: entityType3, 
+                            entity: instance3, 
+                            snapshot: shadowSnapshot3);
+                        return instance3;
+                    } : default(void);
+                    return instance3;
+                };
+                return entity;
+            }, 
+            inverseNavigation: default(INavigationBase), 
+            fixup: (namelessParameter{25}, namelessParameter{26}) => 
+            {
+                return [LIFTABLE Constant: ClrICollectionAccessor<Post, List<Reaction>, Reaction> | Resolver: namelessParameter{27} => namelessParameter{27}.Dependencies.Model.FindEntityType("SimpleBlog.Domain.Entities.Post").FindNavigation("Reaction").GetCollectionAccessor()].Add(
+                    entity: namelessParameter{25}, 
+                    value: namelessParameter{26}, 
+                    forMaterialization: True);
+            }, 
+            trackingQuery: True);
+        return IsTrue(resultCoordinator.ResultReady)
+         ? (Post)(resultContext.Values[0]) : default(Post);
+    }, 
+    contextType: SimpleBlog.Infrastructure.Data.BlogDbContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)'
+2025-04-27 18:49:25  [DBG] [/] Creating DbConnection.
+2025-04-27 18:49:25  [DBG] [/] Created DbConnection. (1ms).
+2025-04-27 18:49:25  [DBG] [/] Opening connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] Opened connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] Creating DbCommand for 'ExecuteReader'.
+2025-04-27 18:49:25  [DBG] [/] Created DbCommand for 'ExecuteReader' (0ms).
+2025-04-27 18:49:25  [DBG] [/] Initialized DbCommand for 'ExecuteReader' (1ms).
+2025-04-27 18:49:25  [DBG] [/] Executing DbCommand [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Id], [p0].[AppUserId], [p0].[Body], [p0].[CreatedAt], [p0].[PostStatus], [p0].[Title], [a].[Id], [c].[Id], [c].[AppUserId], [c].[PostId], [c].[Text], [c].[Time], [r].[Id], [r].[AppUserId], [r].[PostId], [r].[ReactType], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[Role], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM (
+    SELECT [p].[Id], [p].[AppUserId], [p].[Body], [p].[CreatedAt], [p].[PostStatus], [p].[Title]
+    FROM [Posts] AS [p]
+    WHERE [p].[PostStatus] = 10
+    ORDER BY [p].[CreatedAt] DESC
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [p0]
+INNER JOIN [AspNetUsers] AS [a] ON [p0].[AppUserId] = [a].[Id]
+LEFT JOIN [Comments] AS [c] ON [p0].[Id] = [c].[PostId]
+LEFT JOIN [Reactions] AS [r] ON [p0].[Id] = [r].[PostId]
+ORDER BY [p0].[CreatedAt] DESC, [p0].[Id], [a].[Id], [c].[Id]
+2025-04-27 18:49:25  [INF] [/] Executed DbCommand (9ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p0].[Id], [p0].[AppUserId], [p0].[Body], [p0].[CreatedAt], [p0].[PostStatus], [p0].[Title], [a].[Id], [c].[Id], [c].[AppUserId], [c].[PostId], [c].[Text], [c].[Time], [r].[Id], [r].[AppUserId], [r].[PostId], [r].[ReactType], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[Name], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[Role], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM (
+    SELECT [p].[Id], [p].[AppUserId], [p].[Body], [p].[CreatedAt], [p].[PostStatus], [p].[Title]
+    FROM [Posts] AS [p]
+    WHERE [p].[PostStatus] = 10
+    ORDER BY [p].[CreatedAt] DESC
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [p0]
+INNER JOIN [AspNetUsers] AS [a] ON [p0].[AppUserId] = [a].[Id]
+LEFT JOIN [Comments] AS [c] ON [p0].[Id] = [c].[PostId]
+LEFT JOIN [Reactions] AS [r] ON [p0].[Id] = [r].[PostId]
+ORDER BY [p0].[CreatedAt] DESC, [p0].[Id], [a].[Id], [c].[Id]
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Post' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] The navigation 'Post.AppUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'AppUser' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Comment' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Reaction' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Post' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Post' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] The navigation 'Comment.AppUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] The navigation 'Post.AppUser' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'AppUser' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] The navigation 'Comment.Post' was detected as changed. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Comment' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Reaction' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Post' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Reaction' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Context 'BlogDbContext' started tracking 'Post' entity. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see key values.
+2025-04-27 18:49:25  [DBG] [/] Closing data reader to 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] A data reader for 'SimpleBlogDb' on server '.\SQLEXPRESS' is being disposed after spending 74ms reading results.
+2025-04-27 18:49:25  [DBG] [/] Closing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] Closed connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS' (0ms).
+2025-04-27 18:49:25  [DBG] [/] Compiling query expression: 
+'DbSet<Post>()
+    .Count()'
+2025-04-27 18:49:25  [DBG] [/] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<int>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT COUNT(*)
+        FROM Posts AS p) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT COUNT(*)
+        FROM Posts AS p, 
+        False, 
+        new HashSet<string>(
+            new string[]{ }, 
+            StringComparer.Ordinal
+        )
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        int? value1;
+        value1 = dataReader.IsDBNull(0) ? default(int?) : (int?)dataReader.GetInt32(0);
+        return (int)value1;
+    }, 
+    contextType: SimpleBlog.Infrastructure.Data.BlogDbContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)
+    .Single()'
+2025-04-27 18:49:25  [DBG] [/] Opening connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] Opened connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] Creating DbCommand for 'ExecuteReader'.
+2025-04-27 18:49:25  [DBG] [/] Created DbCommand for 'ExecuteReader' (1ms).
+2025-04-27 18:49:25  [DBG] [/] Initialized DbCommand for 'ExecuteReader' (2ms).
+2025-04-27 18:49:25  [DBG] [/] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Posts] AS [p]
+2025-04-27 18:49:25  [INF] [/] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Posts] AS [p]
+2025-04-27 18:49:25  [DBG] [/] Closing data reader to 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] A data reader for 'SimpleBlogDb' on server '.\SQLEXPRESS' is being disposed after spending 1ms reading results.
+2025-04-27 18:49:25  [DBG] [/] Closing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:25  [DBG] [/] Closed connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS' (0ms).
+2025-04-27 18:49:25  [INF] [/] Page Load
+2025-04-27 18:49:25  [DBG] [/] View lookup cache miss for view 'Index' in controller 'Home'.
+2025-04-27 18:49:25  [INF] [/] Executing ViewResult, running view Index.
+2025-04-27 18:49:25  [DBG] [/] The view path '/Areas/User/Views/Home/Index.cshtml' was found in 5.2938ms.
+2025-04-27 18:49:25  [DBG] [/] The temp data cookie .AspNetCore.Mvc.CookieTempDataProvider was not found.
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[User],action=[Create],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/Create and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/Create
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[8],reactId=[10],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=8&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=8&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[8],reactId=[20],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=8&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=8&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (id=[8],action=[Details],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/Details/8 and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/Details/8
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[9],reactId=[10],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=9&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=9&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[9],reactId=[20],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=9&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=9&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (id=[9],action=[Details],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/Details/9 and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/Details/9
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[4],reactId=[10],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=4&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=4&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[4],reactId=[20],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=4&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=4&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (id=[4],action=[Details],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/Details/4 and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/Details/4
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[3],reactId=[10],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=3&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=3&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[3],reactId=[20],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=3&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=3&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (id=[3],action=[Details],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/Details/3 and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/Details/3
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[2],reactId=[10],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=2&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=2&reactId=10&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (postId=[2],reactId=[20],url=[/],action=[React],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/React and ?postId=2&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/React?postId=2&reactId=20&url=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (id=[2],action=[Details],controller=[Post])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Post/Details/2 and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Post/Details/2
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (pageNo=[0],action=[Index],controller=[Home])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in  and ?pageNo=0
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /?pageNo=0
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (pageNo=[2],action=[Index],controller=[Home])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in  and ?pageNo=2
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /?pageNo=2
+2025-04-27 18:49:25  [DBG] [/] View lookup cache miss for view '_Layout' in controller 'Home'.
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[],action=[Index],controller=[Home])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in  and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[Admin],action=[Index],controller=[Approve])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /Admin/Approve and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /Admin/Approve
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[Admin],action=[TopPosts],controller=[Approve])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /Admin/Approve/TopPosts and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /Admin/Approve/TopPosts
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[Admin],action=[Index],controller=[UserManager])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /Admin/UserManager and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /Admin/UserManager
+2025-04-27 18:49:25  [DBG] [/] View lookup cache miss for view '_LoginPartial' in controller 'Home'.
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[Auth],action=[ChangePassword],controller=[Account])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /Auth/Account/ChangePassword and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /Auth/Account/ChangePassword
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (returnUrl=[/],area=[Auth],action=[SignOut],controller=[Auth])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /Auth/Auth/SignOut and ?returnUrl=%2F
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /Auth/Auth/SignOut?returnUrl=%2F
+2025-04-27 18:49:25  [DBG] [/] Found the endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] for address (area=[],action=[Privacy],controller=[Home])
+2025-04-27 18:49:25  [DBG] [/] Successfully processed template {area=User}/{controller=Home}/{action=Index}/{id?} for Route: {area=User}/{controller=Home}/{action=Index}/{id?} resulting in /User/Home/Privacy and 
+2025-04-27 18:49:25  [DBG] [/] Link generation succeeded for endpoints ["Route: {area=User}/{controller=Home}/{action=Index}/{id?}"] with result /User/Home/Privacy
+2025-04-27 18:49:25  [DBG] [/] Response markup is scheduled to include Browser Link script injection.
+2025-04-27 18:49:25  [DBG] [/] Response markup is scheduled to include browser refresh script injection.
+2025-04-27 18:49:25  [INF] [/] Executed ViewResult - view Index executed in 181.8875ms.
+2025-04-27 18:49:25  [INF] [/] Executed action SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation) in 430.823ms
+2025-04-27 18:49:25  [INF] [/] Executed endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)'
+2025-04-27 18:49:25  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/css/site.css?v=IcnLC7orVWR4cCAgQ6y-gbBcvLZOfr9bgdpd-szmaww - null null
+2025-04-27 18:49:25  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/_framework/aspnetcore-browser-refresh.js - null null
+2025-04-27 18:49:25  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2025-04-27 18:49:25  [DBG] [/] Response markup was updated to include Browser Link script injection.
+2025-04-27 18:49:25  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/Like.png - null null
+2025-04-27 18:49:25  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/SimpleBlog.Presentation.styles.css?v=EHRnJDv4j6OSfLkCDorYViwXQOfJr1wSPacMfFvV44U - null null
+2025-04-27 18:49:26  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/DisLike.png - null null
+2025-04-27 18:49:26  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/lib/jquery/dist/jquery.min.js - null null
+2025-04-27 18:49:26  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2025-04-27 18:49:26  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2025-04-27 18:49:26  [INF] [/] Request starting HTTP/2 GET https://localhost:7266/_vs/browserLink - null null
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] Script injected: /_framework/aspnetcore-browser-refresh.js
+2025-04-27 18:49:26  [DBG] [/] Response markup was updated to include browser refresh script injection.
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/css/site.css'
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/lib/bootstrap/dist/css/bootstrap.min.css'
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/Like.png'
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] AuthenticationScheme: Identity.Application was successfully authenticated.
+2025-04-27 18:49:26  [DBG] [/] 4 candidate(s) found for the request path '/SimpleBlog.Presentation.styles.css'
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/_framework/aspnetcore-browser-refresh.js - 200 16531 application/javascript; charset=utf-8 134.354ms
+2025-04-27 18:49:26  [DBG] [/] 'BlogDbContext' disposed.
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'css/site.css' is valid for the request path '/css/site.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'lib/bootstrap/dist/css/bootstrap.min.css' is valid for the request path '/lib/bootstrap/dist/css/bootstrap.min.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'Like.png' is valid for the request path '/Like.png'
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/DisLike.png'
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/js/site.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'SimpleBlog.Presentation.styles.css' is valid for the request path '/SimpleBlog.Presentation.styles.css'
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/lib/jquery/dist/jquery.min.js'
+2025-04-27 18:49:26  [DBG] [/] 3 candidate(s) found for the request path '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2025-04-27 18:49:26  [DBG] [/] Disposing connection to database 'SimpleBlogDb' on server '.\SQLEXPRESS'.
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'css/site.css' is valid for the request path '/css/site.css'
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/_vs/browserLink - 200 null text/javascript; charset=UTF-8 144.8723ms
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'lib/bootstrap/dist/css/bootstrap.min.css' is valid for the request path '/lib/bootstrap/dist/css/bootstrap.min.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)' with route pattern '{area=User}/{controller=Home}/{action=Index}/{id?}' is valid for the request path '/Like.png'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'DisLike.png' is valid for the request path '/DisLike.png'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'js/site.js' is valid for the request path '/js/site.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'SimpleBlog.Presentation.styles.css' is valid for the request path '/SimpleBlog.Presentation.styles.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'lib/jquery/dist/jquery.min.js' is valid for the request path '/lib/jquery/dist/jquery.min.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'lib/bootstrap/dist/js/bootstrap.bundle.min.js' is valid for the request path '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2025-04-27 18:49:26  [DBG] [/] Disposed connection to database '' on server '' (7ms).
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/css/site.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/lib/bootstrap/dist/css/bootstrap.min.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/Like.png'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)' with route pattern '{area=User}/{controller=Home}/{action=Index}/{id?}' is valid for the request path '/DisLike.png'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'js/site.js' is valid for the request path '/js/site.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'SimpleBlog.Presentation.Areas.User.Controllers.HomeController.Index (SimpleBlog.Presentation)' with route pattern '{area=User}/{controller=Home}/{action=Index}/{id?}' is valid for the request path '/SimpleBlog.Presentation.styles.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'lib/jquery/dist/jquery.min.js' is valid for the request path '/lib/jquery/dist/jquery.min.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'null' with route pattern 'lib/bootstrap/dist/js/bootstrap.bundle.min.js' is valid for the request path '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/ - 200 null text/html; charset=utf-8 894.1117ms
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/DisLike.png'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/js/site.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/SimpleBlog.Presentation.styles.css'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/lib/jquery/dist/jquery.min.js'
+2025-04-27 18:49:26  [DBG] [/] Endpoint 'Fallback {**path:file}' with route pattern '{**path:file}' is valid for the request path '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [DBG] [/] Request matched endpoint 'null'
+2025-04-27 18:49:26  [INF] [/] The file Like.png was not modified
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [DBG] [/] Handled. Status code: 304 File: Like.png
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Sending file. Request path: 'SimpleBlog.Presentation.styles.css'. Physical path: 'C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation\obj\Debug\net9.0\compressed\5ra2iwnjv8-oqzwnyd8ca.gz'
+2025-04-27 18:49:26  [INF] [/] Sending file. Request path: 'css/site.css'. Physical path: 'C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation\obj\Debug\net9.0\compressed\injb9u3rtm-d9ptozux96.gz'
+2025-04-27 18:49:26  [INF] [/] The file DisLike.png was not modified
+2025-04-27 18:49:26  [INF] [/] Sending file. Request path: 'js/site.js'. Physical path: 'C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation\obj\Debug\net9.0\compressed\s266t9wxzp-xtxxf3hu2r.gz'
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/Like.png - 304 null image/png 304.6772ms
+2025-04-27 18:49:26  [INF] [/] Sending file. Request path: 'lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation\obj\Debug\net9.0\compressed\hr6uz09xh2-493y06b0oq.gz'
+2025-04-27 18:49:26  [INF] [/] Sending file. Request path: 'lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation\obj\Debug\net9.0\compressed\mzxoyuqelg-46ein0sx1k.gz'
+2025-04-27 18:49:26  [INF] [/] Sending file. Request path: 'lib/jquery/dist/jquery.min.js'. Physical path: 'C:\Users\OPL-PC\Desktop\SimpleBlog\SimpleBlog\SimpleBlog.Presentation\obj\Debug\net9.0\compressed\fv666i1bff-o1o13a6vjx.gz'
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [DBG] [/] Handled. Status code: 304 File: DisLike.png
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/SimpleBlog.Presentation.styles.css?v=EHRnJDv4j6OSfLkCDorYViwXQOfJr1wSPacMfFvV44U - 200 1174 text/css 314.3126ms
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/css/site.css?v=IcnLC7orVWR4cCAgQ6y-gbBcvLZOfr9bgdpd-szmaww - 200 1274 text/css 315.0521ms
+2025-04-27 18:49:26  [INF] [/] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 264 text/javascript 218.9992ms
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 80764 text/javascript 226.5ms
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/lib/bootstrap/dist/css/bootstrap.min.css - 200 232871 text/css 318.3835ms
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/lib/jquery/dist/jquery.min.js - 200 87576 text/javascript 239.371ms
+2025-04-27 18:49:26  [INF] [/] Request finished HTTP/2 GET https://localhost:7266/DisLike.png - 304 null image/png 245.7724ms

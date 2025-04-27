@@ -9,11 +9,13 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly BlogDbContext _context;
+        private readonly ILogger<UserManagerController> _logger;
 
-        public UserManagerController(UserManager<AppUser> userManager, BlogDbContext context)
+        public UserManagerController(UserManager<AppUser> userManager, BlogDbContext context, ILogger<UserManagerController> logger)
         {
             _userManager = userManager;
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -28,7 +30,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }
@@ -59,7 +62,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return RedirectToAction(nameof(Index)); ;
             }

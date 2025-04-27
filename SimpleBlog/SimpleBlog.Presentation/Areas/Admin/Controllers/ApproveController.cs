@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
+using SimpleBlog.Presentation.Areas.Auth.Controllers;
 
 namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 {
@@ -9,10 +10,12 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
     public class ApproveController : Controller
     {
         private readonly IPostService _postService;
+        private readonly ILogger<ApproveController> _logger;
 
-        public ApproveController(IPostService postService)
+        public ApproveController(IPostService postService, ILogger<ApproveController> logger)
         {
             _postService = postService;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -25,7 +28,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }
@@ -41,7 +45,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }
@@ -58,7 +63,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View(post);
             }
@@ -74,7 +80,8 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = ex.Message;
+                TempData["error"] = "Something went wrong, Internal error occure";
+                _logger.LogError(ex, ex.Message);
 
                 return View();
             }

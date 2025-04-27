@@ -24,7 +24,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return result;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -60,7 +60,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return result;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }

@@ -31,6 +31,11 @@ namespace SimpleBlog.Infrastructure.DI
                 option.ExpireTimeSpan = TimeSpan.FromDays(1);
             });
 
+            //services.AddAuthorization(option =>
+            //{
+            //    option.AddPolicy("CheckBlockUser", policy => policy.Requirements.Add(new CheckBlockUser()));
+            //});
+
             services.AddScoped<ISeedData, SeedData>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPostService, PostService>();

@@ -16,14 +16,21 @@ namespace SimpleBlog.Infrastructure.Services
             _context = context;
         }
 
-        public void Create(Post post)
+        public void Create(PostDTO postDTO)
         {
             try
             {
+                var post = new Post
+                {
+                    Title = postDTO.Title,
+                    Body = postDTO.Body,
+                    AppUserId = postDTO.AppUserId
+                };
+
                 _context.Posts.Add(post);
                 _context.SaveChanges();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -37,7 +44,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return post;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -60,7 +67,7 @@ namespace SimpleBlog.Infrastructure.Services
                     return posts;
                 }
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -83,7 +90,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return pageData;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -103,7 +110,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return posts;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -116,7 +123,7 @@ namespace SimpleBlog.Infrastructure.Services
                 _context.Posts.Update(post);
                 _context.SaveChanges();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }

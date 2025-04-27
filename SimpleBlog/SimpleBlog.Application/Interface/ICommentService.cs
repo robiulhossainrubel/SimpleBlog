@@ -1,10 +1,11 @@
-﻿using SimpleBlog.Domain.Entities;
+﻿using SimpleBlog.Application.DTOs;
+using SimpleBlog.Domain.Entities;
 
 namespace SimpleBlog.Application.Interface
 {
     public interface ICommentService
     {
-        void Create(Comment comment);
+        void Create(CommentDTO commentDTO);
         List<Comment> GetAll();
     }
 }

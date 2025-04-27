@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
@@ -14,14 +15,21 @@ namespace SimpleBlog.Infrastructure.Services
             _context = context;
         }
 
-        public void Create(Comment comment)
+        public void Create(CommentDTO commentDTO)
         {
             try
             {
+                var comment = new Comment
+                {
+                    PostId = commentDTO.PostId,
+                    Text = commentDTO.Text,
+                    AppUserId = commentDTO.AppUserId
+                };
+
                 _context.Comments.Add(comment);
                 _context.SaveChanges();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -35,7 +43,7 @@ namespace SimpleBlog.Infrastructure.Services
 
                 return comments;
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }

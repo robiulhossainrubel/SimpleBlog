@@ -6,7 +6,7 @@ namespace SimpleBlog.Application.Interface
 {
     public interface IPostService
     {
-        void Create(Post post);
+        void Create(PostDTO postDTO);
         void Update(Post post);
         Post Get(int id);
         List<Post> GetAll(Expression<Func<Post, bool>>? expression = null);

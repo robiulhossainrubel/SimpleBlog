@@ -75,6 +75,7 @@
                     <form method="post">
                         <input asp-for="Comment.PostId" value="@Model.Post.Id" hidden/>
                         <input type="text" asp-for="Comment.Text" class="form-control mr-3" placeholder="Add comment"/>
+                            <span asp-validation-for="Comment.Text" class="text-danger"></span>
                         <input type="submit" value="Submit" class="btn btn-primary" />
                     </form>
                 </div>
@@ -82,7 +83,7 @@
                 {
                     <div class="commented-section mt-2">
                         <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">@comment.AppUser.NormalizedUserName</h5>
+                            <h5 class="mr-2">@comment.AppUser.Name</h5>
                             <span class="dot mb-1"></span>
                             <span class="mb-1 ml-2">@((@DateTime.Now - comment.Time).ToString("mm")) mins ago</span>
                         </div>
