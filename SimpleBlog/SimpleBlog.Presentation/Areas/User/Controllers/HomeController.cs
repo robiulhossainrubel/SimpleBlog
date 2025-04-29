@@ -36,7 +36,6 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
                     var currentUser = _userManager.GetUserAsync(HttpContext.User).GetAwaiter().GetResult();
                     posts.UserId = currentUser.Id;
                 }
-                _logger.LogInformation("Page Load");
 
                 return View(posts);
             }

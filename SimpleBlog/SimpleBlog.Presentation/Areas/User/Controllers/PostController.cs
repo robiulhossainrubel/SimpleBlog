@@ -42,7 +42,7 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
                 {
                     var currentUser = await _userManager.GetUserAsync(HttpContext.User);
                     post.AppUserId = currentUser.Id;
-                    _postService.Create(post);
+                    await _postService.Create(post);
 
                     TempData["message"] = "Post Pending For Approval";
 
@@ -104,7 +104,7 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
                     var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
                     comment.AppUserId = currentUser.Id;
-                    _commentService.Create(comment);
+                    await _commentService.Create(comment);
 
                     postVM.Post = _postService.Get(postVM.Comment.PostId);
 
@@ -134,7 +134,7 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
             {
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-                _reactionService.React(postId, reactId, currentUser.Id);
+                await _reactionService.React(postId, reactId, currentUser.Id);
 
                 return LocalRedirect(url);
             }

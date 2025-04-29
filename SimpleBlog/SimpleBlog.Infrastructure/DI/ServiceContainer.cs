@@ -8,6 +8,7 @@ using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
 using SimpleBlog.Infrastructure.DI.AuthFilter;
+using SimpleBlog.Infrastructure.Repository;
 using SimpleBlog.Infrastructure.Services;
 
 namespace SimpleBlog.Infrastructure.DI
@@ -37,6 +38,9 @@ namespace SimpleBlog.Infrastructure.DI
             //});
 
             services.AddScoped<ISeedData, SeedData>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IReactionRepository, ReactionRepository>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IReactionService, ReactionService>();

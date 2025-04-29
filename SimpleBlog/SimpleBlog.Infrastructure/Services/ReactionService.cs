@@ -1,24 +1,22 @@
 ﻿using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Data;
 
 namespace SimpleBlog.Infrastructure.Services
 {
     public class ReactionService : IReactionService
     {
-        private readonly BlogDbContext _context;
+        private readonly IReactionRepository _repository;
 
-        public ReactionService(BlogDbContext context)
+        public ReactionService(IReactionRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        public void Create(Reaction reaction)
+        public async Task Create(Reaction reaction)
         {
             try
             {
-                _context.Reactions.Add(reaction);
-                _context.SaveChanges();
+                await _repository.Create(reaction);
             }
             catch (Exception)
             {
@@ -26,14 +24,13 @@ namespace SimpleBlog.Infrastructure.Services
             }
         }
 
-        public void Delete(int postId, int userId)
+        public async Task Delete(int postId, int userId)
         {
             try
             {
                 var react = GetByPostIdAndUserId(postId, userId);
 
-                _context.Reactions.Remove(react);
-                _context.SaveChanges();
+                await _repository.Delete(react);
             }
             catch (Exception)
             {
@@ -45,7 +42,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var reaction = _context.Reactions.FirstOrDefault(x => x.Id == id);
+                var reaction = _repository.GetById(id);
 
                 return reaction;
             }
@@ -59,7 +56,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var reactionslist = _context.Reactions.ToList();
+                var reactionslist = _repository.GetAll().ToList();
 
                 return reactionslist;
             }
@@ -73,7 +70,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var reaction = _context.Reactions.FirstOrDefault(x => x.PostId == postId && x.AppUserId == userId);
+                var reaction = _repository.Get(x => x.PostId == postId && x.AppUserId == userId);
 
                 return reaction;
             }
@@ -83,12 +80,11 @@ namespace SimpleBlog.Infrastructure.Services
             }
         }
 
-        public void Update(Reaction reaction)
+        public async Task Update(Reaction reaction)
         {
             try
             {
-                _context.Reactions.Update(reaction);
-                _context.SaveChanges();
+                await _repository.Update(reaction);
             }
             catch (Exception)
             {
@@ -96,7 +92,7 @@ namespace SimpleBlog.Infrastructure.Services
             }
         }
 
-        public void React(int postId, int reactId, int userId)
+        public async Task React(int postId, int reactId, int userId)
         {
             try
             {
@@ -111,19 +107,19 @@ namespace SimpleBlog.Infrastructure.Services
                         AppUserId = userId
                     };
 
-                    Create(react);
+                    await Create(react);
                 }
                 else
                 {
                     if (reaction.ReactType == (ReactionType)reactId)
                     {
-                        Delete(postId, userId);
+                        await Delete(postId, userId);
                     }
                     else
                     {
                         reaction.ReactType = (ReactionType)reactId;
 
-                        Update(reaction);
+                        await Update(reaction);
                     }
                 }
             }

@@ -4,12 +4,12 @@ namespace SimpleBlog.Application.Interface
 {
     public interface IReactionService
     {
-        void Create(Reaction reaction);
-        void Update(Reaction reaction);
+        Task Create(Reaction reaction);
+        Task Update(Reaction reaction);
         Reaction Get(int id);
         Reaction GetByPostIdAndUserId(int postId, int userId);
-        void Delete(int postId, int userId);
+        Task Delete(int postId, int userId);
         List<Reaction> GetAll();
-        void React(int postId, int reactId, int userId);
+        Task React(int postId, int reactId, int userId);
     }
 }

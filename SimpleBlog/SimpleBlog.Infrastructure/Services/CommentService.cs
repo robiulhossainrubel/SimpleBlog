@@ -1,21 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SimpleBlog.Application.DTOs;
+﻿using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Data;
 
 namespace SimpleBlog.Infrastructure.Services
 {
     public class CommentService : ICommentService
     {
-        private readonly BlogDbContext _context;
+        private readonly ICommentRepository _repository;
 
-        public CommentService(BlogDbContext context)
+        public CommentService(ICommentRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        public void Create(CommentDTO commentDTO)
+        public async Task Create(CommentDTO commentDTO)
         {
             try
             {
@@ -26,8 +24,7 @@ namespace SimpleBlog.Infrastructure.Services
                     AppUserId = commentDTO.AppUserId
                 };
 
-                _context.Comments.Add(comment);
-                _context.SaveChanges();
+                await _repository.Create(comment);
             }
             catch (Exception)
             {
@@ -39,7 +36,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var comments = _context.Comments.Include(c => c.AppUser).ToList();
+                var comments = _repository.GetAll(includeProperties: "AppUser").ToList();
 
                 return comments;
             }

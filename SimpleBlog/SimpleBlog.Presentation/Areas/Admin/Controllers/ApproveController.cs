@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Presentation.Areas.Auth.Controllers;
 
 namespace SimpleBlog.Presentation.Areas.Admin.Controllers
 {
@@ -53,11 +52,11 @@ namespace SimpleBlog.Presentation.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Details(Post post)
+        public async Task<IActionResult> Details(Post post)
         {
             try
             {
-                _postService.Update(post);
+                await _postService.Update(post);
 
                 return RedirectToAction(nameof(Index));
             }

@@ -5,7 +5,7 @@ namespace SimpleBlog.Application.Interface
 {
     public interface ICommentService
     {
-        void Create(CommentDTO commentDTO);
+        Task Create(CommentDTO commentDTO);
         List<Comment> GetAll();
     }
 }

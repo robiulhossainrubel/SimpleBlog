@@ -16,7 +16,7 @@ namespace SimpleBlog.Infrastructure.Services
             _context = context;
         }
 
-        public void Create(PostDTO postDTO)
+        public async Task Create(PostDTO postDTO)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace SimpleBlog.Infrastructure.Services
                 };
 
                 _context.Posts.Add(post);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -116,12 +116,12 @@ namespace SimpleBlog.Infrastructure.Services
             }
         }
 
-        public void Update(Post post)
+        public async Task Update(Post post)
         {
             try
             {
                 _context.Posts.Update(post);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
