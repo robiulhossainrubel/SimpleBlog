@@ -1,3 +1,4 @@
+using Serilog;
 using SimpleBlog.Infrastructure.DI;
 using SimpleBlog.Infrastructure.DI.AuthFilter;
 
@@ -14,7 +15,7 @@ namespace SimpleBlog.Presentation
                 builder.Logging.AddLog4Net();
                 //Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("Log/log.txt", rollingInterval: RollingInterval.Day).CreateLogger();
                 //Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger();
-                //builder.Host.UseSerilog();
+                builder.Host.UseSerilog();
                 // Add services to the container.
                 builder.Services.AddControllersWithViews();
                 builder.Services.AddInfrastructureService(builder.Configuration);
