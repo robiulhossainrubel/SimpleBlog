@@ -1,19 +1,17 @@
 ﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Data;
 
 namespace SimpleBlog.Infrastructure.Services
 {
     public class PostService : IPostService
     {
-        private readonly BlogDbContext _context;
+        private readonly IPostRepository _repository;
 
-        public PostService(BlogDbContext context)
+        public PostService(IPostRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task Create(PostDTO postDTO)
@@ -26,9 +24,7 @@ namespace SimpleBlog.Infrastructure.Services
                     Body = postDTO.Body,
                     AppUserId = postDTO.AppUserId
                 };
-
-                _context.Posts.Add(post);
-                await _context.SaveChangesAsync();
+                await _repository.Create(post);
             }
             catch (Exception)
             {
@@ -40,7 +36,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var post = _context.Posts.Include(x => x.Reaction).Include(x => x.AppUser).Include(x => x.Comment).ThenInclude(x => x.AppUser).FirstOrDefault(x => x.Id == id);
+                var post = _repository.GetPost(id);
 
                 return post;
             }
@@ -54,18 +50,9 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                if (expression == null)
-                {
-                    var posts = _context.Posts.Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
+                var posts = _repository.GetAllPosts(expression);
 
-                    return posts;
-                }
-                else
-                {
-                    var posts = _context.Posts.Where(expression).Include(p => p.Comment).Include(x => x.Reaction).Include(x => x.AppUser).OrderByDescending(p => p.CreatedAt).ToList();
-
-                    return posts;
-                }
+                return posts;
             }
             catch (Exception)
             {
@@ -77,18 +64,9 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var posts = _context.Posts
-                    .Where(x => x.PostStatus == Status.Approve)
-                    .Include(p => p.Comment)
-                    .Include(x => x.Reaction)
-                    .Include(x => x.AppUser)
-                    .OrderByDescending(p => p.CreatedAt)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-                var pageData = new Pagination<Post>(posts, _context.Posts.Count(), pageIndex, pageSize);
+                var posts = _repository.GetPaginate(pageIndex, pageSize);
 
-                return pageData;
+                return posts;
             }
             catch (Exception)
             {
@@ -100,13 +78,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                var posts = _context.Posts
-                    .Include(p => p.Comment)
-                    .Include(x => x.Reaction)
-                    .Include(x => x.AppUser)
-                    .OrderByDescending(x => x.Reaction.Count() + x.Comment.Count())
-                    .Take(5)
-                    .ToList();
+                var posts = _repository.TopPosts();
 
                 return posts;
             }
@@ -120,8 +92,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             try
             {
-                _context.Posts.Update(post);
-                await _context.SaveChangesAsync();
+                await _repository.Update(post);
             }
             catch (Exception)
             {

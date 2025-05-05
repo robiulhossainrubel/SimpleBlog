@@ -16,11 +16,11 @@ namespace SimpleBlog.Infrastructure.Services
             _userManager = userManager;
         }
 
-        public async Task<SignInResult> SignInAsync(SignInDTO signInDTO)
+        public async Task<SignInResult> SignInAsync(SignInDTO signInDto)
         {
             try
             {
-                var result = await _signInManager.PasswordSignInAsync(signInDTO.Email, signInDTO.Password, signInDTO.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(signInDto.Email, signInDto.Password, signInDto.RememberMe, false);
 
                 return result;
             }
@@ -35,20 +35,20 @@ namespace SimpleBlog.Infrastructure.Services
             return _signInManager.SignOutAsync();
         }
 
-        public async Task<IdentityResult> SignUpAsync(SignUpDTO signUpDTO)
+        public async Task<IdentityResult> SignUpAsync(SignUpDTO signUpDto)
         {
             try
             {
                 var user = new AppUser
                 {
-                    Name = signUpDTO.Name,
-                    Email = signUpDTO.Email,
-                    UserName = signUpDTO.Email,
-                    NormalizedUserName = signUpDTO.Name,
-                    Role = signUpDTO.Role ?? "User"
+                    Name = signUpDto.Name,
+                    Email = signUpDto.Email,
+                    UserName = signUpDto.Email,
+                    NormalizedUserName = signUpDto.Name,
+                    Role = signUpDto.Role ?? "User"
                 };
 
-                var result = await _userManager.CreateAsync(user, signUpDTO.Password);
+                var result = await _userManager.CreateAsync(user, signUpDto.Password);
                 await _userManager.AddToRoleAsync(user, user.Role);
 
                 if (result.Succeeded)

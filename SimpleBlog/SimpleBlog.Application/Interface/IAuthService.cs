@@ -5,8 +5,8 @@ namespace SimpleBlog.Application.Interface
 {
     public interface IAuthService
     {
-        public Task<SignInResult> SignInAsync(SignInDTO signInDTO);
-        public Task<IdentityResult> SignUpAsync(SignUpDTO signUpDTO);
+        public Task<SignInResult> SignInAsync(SignInDTO signInDto);
+        public Task<IdentityResult> SignUpAsync(SignUpDTO signUpDto);
         public Task SignOutAsync();
     }
 }

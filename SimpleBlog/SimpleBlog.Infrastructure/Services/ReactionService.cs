@@ -12,46 +12,6 @@ namespace SimpleBlog.Infrastructure.Services
             _repository = repository;
         }
 
-        public async Task Create(Reaction reaction)
-        {
-            try
-            {
-                await _repository.Create(reaction);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task Delete(int postId, int userId)
-        {
-            try
-            {
-                var react = GetByPostIdAndUserId(postId, userId);
-
-                await _repository.Delete(react);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public Reaction Get(int id)
-        {
-            try
-            {
-                var reaction = _repository.GetById(id);
-
-                return reaction;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public List<Reaction> GetAll()
         {
             try
@@ -66,37 +26,11 @@ namespace SimpleBlog.Infrastructure.Services
             }
         }
 
-        public Reaction GetByPostIdAndUserId(int postId, int userId)
-        {
-            try
-            {
-                var reaction = _repository.Get(x => x.PostId == postId && x.AppUserId == userId);
-
-                return reaction;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task Update(Reaction reaction)
-        {
-            try
-            {
-                await _repository.Update(reaction);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public async Task React(int postId, int reactId, int userId)
         {
             try
             {
-                var reaction = GetByPostIdAndUserId(postId, userId);
+                var reaction = _repository.Get(x => x.PostId == postId && x.AppUserId == userId);
 
                 if (reaction == null)
                 {
@@ -107,19 +41,19 @@ namespace SimpleBlog.Infrastructure.Services
                         AppUserId = userId
                     };
 
-                    await Create(react);
+                    await _repository.Create(react);
                 }
                 else
                 {
                     if (reaction.ReactType == (ReactionType)reactId)
                     {
-                        await Delete(postId, userId);
+                        await _repository.Delete(reaction);
                     }
                     else
                     {
                         reaction.ReactType = (ReactionType)reactId;
 
-                        await Update(reaction);
+                        await _repository.Update(reaction);
                     }
                 }
             }

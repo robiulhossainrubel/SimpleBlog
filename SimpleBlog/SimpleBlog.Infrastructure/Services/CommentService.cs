@@ -13,15 +13,15 @@ namespace SimpleBlog.Infrastructure.Services
             _repository = repository;
         }
 
-        public async Task Create(CommentDTO commentDTO)
+        public async Task Create(CommentDTO commentDto)
         {
             try
             {
                 var comment = new Comment
                 {
-                    PostId = commentDTO.PostId,
-                    Text = commentDTO.Text,
-                    AppUserId = commentDTO.AppUserId
+                    PostId = commentDto.PostId,
+                    Text = commentDto.Text,
+                    AppUserId = commentDto.AppUserId
                 };
 
                 await _repository.Create(comment);
