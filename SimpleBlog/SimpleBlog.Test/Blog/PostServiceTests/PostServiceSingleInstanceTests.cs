@@ -1,9 +1,9 @@
 ﻿using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
-namespace SimpleBlog.Test.PostServiceTests;
+namespace SimpleBlog.Test.Blog.PostServiceTests;
 
-public class PostServiceSingelInstanceTests : PostServiceBaseTest
+public class PostServiceSingleInstanceTests : PostServiceBaseTest
 {
     #region Get
     [Fact]

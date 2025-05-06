@@ -5,7 +5,7 @@ using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Services;
 
-namespace SimpleBlog.Test.PostServiceTests;
+namespace SimpleBlog.Test.Blog.PostServiceTests;
 
 [ExcludeFromCodeCoverage]
 public class PostServiceBaseTest
@@ -19,6 +19,7 @@ public class PostServiceBaseTest
         _sut = new PostService(_postRepositoryMock);
     }
 
+    #region DummyData Helper
     public List<Post> GetDummyPosts(int n)
     {
         var posts = new List<Post>();
@@ -62,4 +63,5 @@ public class PostServiceBaseTest
 
         return postDto;
     }
+    #endregion
 }

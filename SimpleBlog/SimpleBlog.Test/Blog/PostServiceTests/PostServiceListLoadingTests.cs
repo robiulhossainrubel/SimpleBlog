@@ -4,7 +4,7 @@ using SimpleBlog.Application.DTOs;
 using SimpleBlog.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace SimpleBlog.Test.PostServiceTests;
+namespace SimpleBlog.Test.Blog.PostServiceTests;
 
 public class PostServiceListLoadingTests : PostServiceBaseTest
 {

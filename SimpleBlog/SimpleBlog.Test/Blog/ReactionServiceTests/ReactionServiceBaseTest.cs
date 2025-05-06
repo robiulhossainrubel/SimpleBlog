@@ -4,7 +4,7 @@ using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Services;
 
-namespace SimpleBlog.Test.ReactionServiceTests;
+namespace SimpleBlog.Test.Blog.ReactionServiceTests;
 
 [ExcludeFromCodeCoverage]
 public class ReactionServiceBaseTest

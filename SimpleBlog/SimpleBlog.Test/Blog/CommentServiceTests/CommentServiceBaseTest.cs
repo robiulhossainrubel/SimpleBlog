@@ -5,7 +5,7 @@ using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Services;
 
-namespace SimpleBlog.Test.CommentServiceTests;
+namespace SimpleBlog.Test.Blog.CommentServiceTests;
 
 [ExcludeFromCodeCoverage]
 public class CommentServiceBaseTest

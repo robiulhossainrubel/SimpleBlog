@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
-namespace SimpleBlog.Test.CommentServiceTests;
+namespace SimpleBlog.Test.Blog.CommentServiceTests;
 
 public class CommentServiceListLoadingTests : CommentServiceBaseTest
 {

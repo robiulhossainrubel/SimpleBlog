@@ -2,7 +2,7 @@
 using NSubstitute.ExceptionExtensions;
 using SimpleBlog.Domain.Entities;
 
-namespace SimpleBlog.Test.PostServiceTests;
+namespace SimpleBlog.Test.Blog.PostServiceTests;
 
 public class PostServiceOperationalTests : PostServiceBaseTest
 {

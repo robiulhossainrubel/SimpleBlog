@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
-namespace SimpleBlog.Test.ReactionServiceTests;
+namespace SimpleBlog.Test.Blog.ReactionServiceTests;
 
 public class ReactionServiceListLoadingTests : ReactionServiceBaseTest
 {

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
 
-namespace SimpleBlog.Test.ReactionServiceTests;
+namespace SimpleBlog.Test.Blog.ReactionServiceTests;
 
 public class ReactionServiceOperationalTests : ReactionServiceBaseTest
 {
