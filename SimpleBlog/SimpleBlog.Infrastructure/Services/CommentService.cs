@@ -13,6 +13,7 @@ namespace SimpleBlog.Infrastructure.Services
             _repository = repository;
         }
 
+        #region Operational
         public async Task Create(CommentDTO commentDto)
         {
             try
@@ -31,7 +32,9 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
+        #endregion
 
+        #region List Loading
         public List<Comment> GetAll()
         {
             try
@@ -45,5 +48,6 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
+        #endregion
     }
 }

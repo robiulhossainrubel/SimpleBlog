@@ -14,6 +14,7 @@ namespace SimpleBlog.Infrastructure.Services
             _repository = repository;
         }
 
+        #region Operational
         public async Task Create(PostDTO postDTO)
         {
             try
@@ -32,6 +33,20 @@ namespace SimpleBlog.Infrastructure.Services
             }
         }
 
+        public async Task Update(Post post)
+        {
+            try
+            {
+                await _repository.Update(post);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region Single Instance
         public Post Get(int id)
         {
             try
@@ -45,7 +60,9 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
+        #endregion
 
+        #region List Loading
         public List<Post> GetAll(Expression<Func<Post, bool>>? expression = null)
         {
             try
@@ -87,17 +104,6 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
-
-        public async Task Update(Post post)
-        {
-            try
-            {
-                await _repository.Update(post);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        #endregion
     }
 }

@@ -11,21 +11,7 @@ namespace SimpleBlog.Infrastructure.Services
         {
             _repository = repository;
         }
-
-        public List<Reaction> GetAll()
-        {
-            try
-            {
-                var reactionslist = _repository.GetAll().ToList();
-
-                return reactionslist;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
+        #region Operational
         public async Task React(int postId, int reactId, int userId)
         {
             try
@@ -62,5 +48,22 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
+        #endregion
+
+        #region List Loading
+        public List<Reaction> GetAll()
+        {
+            try
+            {
+                var reactionslist = _repository.GetAll().ToList();
+
+                return reactionslist;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }
