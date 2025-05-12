@@ -16,6 +16,7 @@ namespace SimpleBlog.Infrastructure.Services
             _userManager = userManager;
         }
 
+        #region SignIn
         public async Task<SignInResult> SignInAsync(SignInDTO signInDto)
         {
             try
@@ -29,12 +30,16 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
+        #endregion
 
+        #region SignOut
         public Task SignOutAsync()
         {
             return _signInManager.SignOutAsync();
         }
+        #endregion
 
+        #region SignUp
         public async Task<IdentityResult> SignUpAsync(SignUpDTO signUpDto)
         {
             try
@@ -51,11 +56,9 @@ namespace SimpleBlog.Infrastructure.Services
                 var result = await _userManager.CreateAsync(user, signUpDto.Password);
                 await _userManager.AddToRoleAsync(user, user.Role);
 
-                if (result.Succeeded)
+                if (result.Succeeded == true)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    return result;
                 }
 
                 return result;
@@ -65,5 +68,6 @@ namespace SimpleBlog.Infrastructure.Services
                 throw;
             }
         }
+        #endregion
     }
 }

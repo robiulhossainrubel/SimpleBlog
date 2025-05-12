@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Services;
@@ -7,7 +8,7 @@ using SimpleBlog.Infrastructure.Services;
 namespace SimpleBlog.Test.Blog.ReactionServiceTests;
 
 [ExcludeFromCodeCoverage]
-public class ReactionServiceBaseTest
+public class ReactionServiceBaseTest : IDisposable
 {
     protected readonly IReactionRepository _reactionRepositoryMock;
     protected readonly IReactionService _sut;
@@ -18,6 +19,7 @@ public class ReactionServiceBaseTest
         _sut = new ReactionService(_reactionRepositoryMock);
     }
 
+    #region DummyData Helper
     public List<Reaction> GetDummyReactions(int n)
     {
         var reactions = new List<Reaction>();
@@ -48,5 +50,11 @@ public class ReactionServiceBaseTest
         };
 
         return reaction;
+    }
+    #endregion
+
+    public void Dispose()
+    {
+        _reactionRepositoryMock?.ClearSubstitute();
     }
 }

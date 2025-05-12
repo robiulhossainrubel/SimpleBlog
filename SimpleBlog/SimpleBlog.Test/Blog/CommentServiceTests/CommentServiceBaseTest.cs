@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -8,7 +9,7 @@ using SimpleBlog.Infrastructure.Services;
 namespace SimpleBlog.Test.Blog.CommentServiceTests;
 
 [ExcludeFromCodeCoverage]
-public class CommentServiceBaseTest
+public class CommentServiceBaseTest : IDisposable
 {
     protected readonly CommentService _sut;
     protected readonly ICommentRepository _commentRepositoryMock;
@@ -19,6 +20,7 @@ public class CommentServiceBaseTest
         _sut = new CommentService(_commentRepositoryMock);
     }
 
+    #region DummyData Helper
     public List<Comment> GetDummyComments(int n)
     {
         var comments = new List<Comment>();
@@ -61,5 +63,11 @@ public class CommentServiceBaseTest
         };
 
         return commentDto;
+    }
+    #endregion
+
+    public void Dispose()
+    {
+        _commentRepositoryMock?.ClearSubstitute();
     }
 }

@@ -1,10 +1,14 @@
 @echo off
+
+for %%I in ("%cd%") do set "dirname=%%~nI"
+
 setlocal
 
 set Report_Folder_Name=UnitTestResult
 set DotNet_Path=dotnet
-set Solution_Name=SimpleBlog
-set Test_Project_Name=SimpleBlog.Test
+set Solution_Name=%dirname%
+set Test_Project_Name=%dirname%.Test
+
 
 echo "Building the solution..."
 %DotNet_Path% build %Solution_Name%.sln

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using NSubstitute;
+using NSubstitute.ClearExtensions;
 using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -8,7 +9,7 @@ using SimpleBlog.Infrastructure.Services;
 namespace SimpleBlog.Test.Blog.PostServiceTests;
 
 [ExcludeFromCodeCoverage]
-public class PostServiceBaseTest
+public class PostServiceBaseTest : IDisposable
 {
     protected readonly IPostRepository _postRepositoryMock;
     protected readonly IPostService _sut;
@@ -64,4 +65,9 @@ public class PostServiceBaseTest
         return postDto;
     }
     #endregion
+
+    public void Dispose()
+    {
+        _postRepositoryMock?.ClearSubstitute();
+    }
 }
