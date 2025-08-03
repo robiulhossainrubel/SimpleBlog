@@ -1,4 +1,13 @@
 ﻿@model PostVM
+@{
+    string updateAgo = "-";
+    if (Model.Post.CreatedAt != null)
+    {
+        var minutes = (DateTime.Now - Model.Post.CreatedAt).TotalMinutes;
+        var elapsedTime = new TimeSpan(0, Convert.ToInt32(minutes), 0);
+        updateAgo = $"{elapsedTime.Days} days {elapsedTime.Hours} hours {elapsedTime.Minutes} minites";
+    }
+}
 
 @if (TempData["error"] != null)
 {
@@ -18,7 +27,7 @@
                 <h4 class="card-title">@Model.Post.AppUser.Name</h4>
                 <h5 class="card-title">@Model.Post.Title</h5>
                 <p class="card-text">@Model.Post.Body</p>
-                <p class="card-text"><small class="text-muted">Last updated @((@DateTime.Now - Model.Post.CreatedAt).ToString("mm")) mins ago</small></p>
+                <p class="card-text"><small class="text-muted">Last updated @(updateAgo)</small></p>
             </div>
             <div class="card-body">
                 @foreach (var react in Enum.GetValues(typeof(ReactionType)))
