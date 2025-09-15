@@ -1,4 +1,5 @@
 using SimpleBlog.Infrastructure.DI;
+using SimpleBlog.Presentation.CustomAttributes;
 
 namespace SimpleBlog.Presentation
 {
@@ -11,6 +12,11 @@ namespace SimpleBlog.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddInfrastructureService(builder.Configuration);
+            builder.Services.AddScoped<ActivityLogAttribute>();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<ActivityLogAttribute>();
+            });
 
             var app = builder.Build();
 

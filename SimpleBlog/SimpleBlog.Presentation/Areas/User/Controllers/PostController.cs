@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
+using SimpleBlog.Infrastructure.Services;
+using SimpleBlog.Presentation.CustomAttributes;
 using SimpleBlog.Presentation.ViewModel;
 
 namespace SimpleBlog.Presentation.Areas.User.Controllers
@@ -89,6 +91,12 @@ namespace SimpleBlog.Presentation.Areas.User.Controllers
                 return LocalRedirect($"/User/Post/Details/{id}");
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Rubel()
+        {
+            return Json(new { success = true, message = "This is a test post action." });
         }
     }
 }
