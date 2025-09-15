@@ -6,5 +6,6 @@ namespace SimpleBlog.Application.Interface
     {
         void EnsureTables();
         void LogActivity(UserActivityLog activity);
+        Task LogActivityBulkAsync(List<UserActivityLog> activities);
     }
 }

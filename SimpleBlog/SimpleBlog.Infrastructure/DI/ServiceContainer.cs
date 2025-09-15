@@ -34,7 +34,8 @@ namespace SimpleBlog.Infrastructure.DI
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IReactionService, ReactionService>();
             services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<IUserActivityService, UserActivityService>();
+            services.AddSingleton<IUserActivityService, UserActivityService>();
+            services.AddSingleton<UserActivityQueue>();
 
             return services;
         }

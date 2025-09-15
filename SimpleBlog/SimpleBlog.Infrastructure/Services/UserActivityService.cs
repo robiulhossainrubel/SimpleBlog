@@ -1,4 +1,5 @@
-﻿using ClickHouse.Client.ADO;
+﻿using System.Diagnostics;
+using ClickHouse.Client.ADO;
 using ClickHouse.Client.ADO.Parameters;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
@@ -54,6 +55,28 @@ namespace SimpleBlog.Infrastructure.Services
 
             cmd.ExecuteNonQuery();
         }
+
+        public async Task LogActivityBulkAsync(List<UserActivityLog> activities)
+        {
+            using var conn = new ClickHouseConnection(_connStr);
+            await conn.OpenAsync();
+
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = @"
+            INSERT INTO user_activity_log (EventTime, UserId, Controller, Action)
+            VALUES (@time, @user, @controller, @action)";
+
+            foreach (var act in activities)
+            {
+                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "time", Value = act.EventTime });
+                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "user", Value = act.UserId });
+                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "controller", Value = act.Controller });
+                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "action", Value = act.Action });
+            }
+
+            await cmd.ExecuteNonQueryAsync();
+        }
+
     }
 
 }

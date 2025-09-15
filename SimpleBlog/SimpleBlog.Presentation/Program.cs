@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Infrastructure.DI;
 using SimpleBlog.Presentation.CustomAttributes;
 
@@ -15,7 +16,7 @@ namespace SimpleBlog.Presentation
             builder.Services.AddScoped<ActivityLogAttribute>();
             builder.Services.AddControllersWithViews(options =>
             {
-                options.Filters.Add<ActivityLogAttribute>();
+                options.Filters.Add(new TypeFilterAttribute(typeof(ActivityLogAttribute)));
             });
 
             var app = builder.Build();

@@ -1,17 +1,17 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
+using SimpleBlog.Infrastructure.Services;
 
 namespace SimpleBlog.Presentation.CustomAttributes;
 
 public class ActivityLogAttribute : ActionFilterAttribute
 {
-    private readonly IUserActivityService _activityService;
+    private readonly UserActivityQueue _activityQueue;
 
-    public ActivityLogAttribute(IUserActivityService activityService)
+    public ActivityLogAttribute(UserActivityQueue activityQueue)
     {
-        _activityService = activityService;
+        _activityQueue = activityQueue;
     }
     public override void OnActionExecuting(ActionExecutingContext context)
     {
@@ -35,17 +35,8 @@ public class ActivityLogAttribute : ActionFilterAttribute
             Action = $"{actionName}"
         };
 
-        _ = Task.Run(() =>
-        {
-            try
-            {
-                _activityService.LogActivity(activity);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Logging failed: {ex.Message}");
-            }
-        });
+        _activityQueue.Enqueue(activity);
+
         base.OnActionExecuting(context);
     }
 }
