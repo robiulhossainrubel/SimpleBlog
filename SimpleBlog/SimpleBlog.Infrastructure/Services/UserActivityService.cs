@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using ClickHouse.Client.ADO;
 using ClickHouse.Client.ADO.Parameters;
 using SimpleBlog.Application.Interface;
@@ -58,23 +59,45 @@ namespace SimpleBlog.Infrastructure.Services
 
         public async Task LogActivityBulkAsync(List<UserActivityLog> activities)
         {
-            using var conn = new ClickHouseConnection(_connStr);
-            await conn.OpenAsync();
+            if (activities == null || activities.Count == 0)
+                return;
 
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = @"
-            INSERT INTO user_activity_log (EventTime, UserId, Controller, Action)
-            VALUES (@time, @user, @controller, @action)";
-
-            foreach (var act in activities)
+            try
             {
-                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "time", Value = act.EventTime });
-                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "user", Value = act.UserId });
-                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "controller", Value = act.Controller });
-                cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "action", Value = act.Action });
-            }
+                var sql = new StringBuilder();
+                sql.Append("INSERT INTO user_activity_log (EventTime, UserId, Controller, Action) VALUES ");
 
-            await cmd.ExecuteNonQueryAsync();
+                for (int i = 0; i < activities.Count; i++)
+                {
+                    var act = activities[i];
+
+                    string eventTime = act.EventTime.ToString("yyyy-MM-dd HH:mm:ss");
+                    string userId = act.UserId.ToString();
+                    string controller = act.Controller.Replace("'", "''");
+                    string action = act.Action.Replace("'", "''");
+
+                    if (i > 0)
+                        sql.Append(", ");
+
+                    sql.Append($"('{eventTime}', {userId}, '{controller}', '{action}')");
+                }
+
+                string commandText = sql.ToString();
+
+                using var conn = new ClickHouseConnection(_connStr);
+                await conn.OpenAsync();
+
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = commandText;
+
+                await cmd.ExecuteNonQueryAsync();
+
+                Console.WriteLine($"Inserted {activities.Count} logs at {DateTime.UtcNow:HH:mm:ss.fff}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ClickHouse bulk insert failed: {ex.Message}");
+            }
         }
 
     }
