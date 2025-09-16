@@ -36,7 +36,6 @@ namespace SimpleBlog.Infrastructure.DI
             services.AddScoped<IReactionService, ReactionService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddSingleton<IUserActivityService, UserActivityService>();
-            services.AddSingleton<UserActivityQueue>();
             services.AddSingleton<PersistentActivityQueue>();
             services.AddSingleton<KafkaActivityProducer>();
             services.AddSingleton<KafkaActivityConsumer>();

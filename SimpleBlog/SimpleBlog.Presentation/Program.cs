@@ -13,7 +13,7 @@ namespace SimpleBlog.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddInfrastructureService(builder.Configuration);
-            builder.Services.AddScoped<EnhancedActivityLogAttribute>();
+            builder.Services.AddSingleton<EnhancedActivityLogAttribute>();
             builder.Services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new TypeFilterAttribute(typeof(EnhancedActivityLogAttribute)));
