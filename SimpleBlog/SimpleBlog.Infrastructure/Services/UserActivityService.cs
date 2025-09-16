@@ -10,57 +10,57 @@ namespace SimpleBlog.Infrastructure.Services
     public class UserActivityService : IUserActivityService
     {
         private readonly string _connStr;
+        private readonly SemaphoreSlim _semaphore;
 
         public UserActivityService()
         {
             _connStr = "Host=ik8ltycloj.me-central-1.aws.clickhouse.cloud;Port=8443;User=default;Password=TTEl_vuaP~DT1;Database=default;Protocol=https;";
             //_connStr = "Host=localhost;Port=8123;Username=default;Password=;Database=default";
+            
+            // Limit concurrent database operations to prevent resource exhaustion
+            _semaphore = new SemaphoreSlim(5, 5);
         }
 
         public void EnsureTables()
         {
-            using var conn = new ClickHouseConnection(_connStr);
-            conn.Open();
+            try
+            {
+                using var conn = new ClickHouseConnection(_connStr);
+                conn.Open();
 
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = @"
-            CREATE TABLE IF NOT EXISTS user_activity_log
-            (
-                Id UUID DEFAULT generateUUIDv4(),
-                EventTime DateTime DEFAULT now(),
-                UserId UInt64,
-                Controller String,
-                Action String
-            )
-            ENGINE = MergeTree()
-            PARTITION BY toYYYYMM(EventTime)
-            ORDER BY (EventTime, UserId);";
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = @"
+                CREATE TABLE IF NOT EXISTS user_activity_log
+                (
+                    Id UUID DEFAULT generateUUIDv4(),
+                    EventTime DateTime DEFAULT now(),
+                    UserId UInt64,
+                    Controller String,
+                    Action String
+                )
+                ENGINE = MergeTree()
+                PARTITION BY toYYYYMM(EventTime)
+                ORDER BY (EventTime, UserId);";
 
-            cmd.ExecuteNonQuery();
-        }
-
-        public void LogActivity(UserActivityLog activity)
-        {
-            using var conn = new ClickHouseConnection(_connStr);
-            conn.Open();
-
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = @"
-            INSERT INTO user_activity_log (EventTime, UserId, Controller, Action)
-            VALUES (@time, @user, @controller, @action)";
-
-            cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "time", Value = activity.EventTime });
-            cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "user", Value = activity.UserId });
-            cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "controller", Value = activity.Controller });
-            cmd.Parameters.Add(new ClickHouseDbParameter { ParameterName = "action", Value = activity.Action });
-
-            cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to ensure ClickHouse tables: {ex.Message}");
+            }
         }
 
         public async Task LogActivityBulkAsync(List<UserActivityLog> activities)
         {
             if (activities == null || activities.Count == 0)
                 return;
+
+            // Don't block if too many operations are already in progress
+            if (!await _semaphore.WaitAsync(TimeSpan.FromMilliseconds(500)))
+            {
+                Console.WriteLine($"Skipping bulk log insert due to high load. Queue size: {activities.Count}");
+                return;
+            }
 
             try
             {
@@ -98,8 +98,29 @@ namespace SimpleBlog.Infrastructure.Services
             {
                 Console.WriteLine($"ClickHouse bulk insert failed: {ex.Message}");
             }
+            finally
+            {
+                try
+                {
+                    _semaphore.Release();
+                }
+                catch
+                {
+                    // Ignore semaphore release errors
+                }
+            }
         }
 
+        public void Dispose()
+        {
+            try
+            {
+                _semaphore?.Dispose();
+            }
+            catch
+            {
+                // Ignore disposal errors
+            }
+        }
     }
-
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
@@ -36,15 +37,33 @@ namespace SimpleBlog.Infrastructure.DI
             services.AddScoped<ICommentService, CommentService>();
             services.AddSingleton<IUserActivityService, UserActivityService>();
             services.AddSingleton<UserActivityQueue>();
+            services.AddSingleton<PersistentActivityQueue>();
+            services.AddSingleton<KafkaActivityProducer>();
+            services.AddSingleton<KafkaActivityConsumer>();
+            services.AddHostedService<PersistentActivityQueue>(provider => provider.GetService<PersistentActivityQueue>());
+            services.AddHostedService<PersistentQueueProcessor>();
 
             return services;
         }
+
         public static IApplicationBuilder UseDataSeed(this IApplicationBuilder application)
         {
             using (var scope = application.ApplicationServices.CreateScope())
             {
                 var service = scope.ServiceProvider.GetRequiredService<ISeedData>();
                 service.Initialize();
+            }
+
+            return application;
+        }
+
+        public static IApplicationBuilder UseActivityLogging(this IApplicationBuilder application)
+        {
+            // Start the Kafka consumer
+            var kafkaConsumer = application.ApplicationServices.GetService<KafkaActivityConsumer>();
+            if (kafkaConsumer != null)
+            {
+                kafkaConsumer.StartConsuming();
             }
 
             return application;

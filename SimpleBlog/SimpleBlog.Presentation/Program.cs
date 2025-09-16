@@ -13,10 +13,10 @@ namespace SimpleBlog.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddInfrastructureService(builder.Configuration);
-            builder.Services.AddScoped<ActivityLogAttribute>();
+            builder.Services.AddScoped<EnhancedActivityLogAttribute>();
             builder.Services.AddControllersWithViews(options =>
             {
-                options.Filters.Add(new TypeFilterAttribute(typeof(ActivityLogAttribute)));
+                options.Filters.Add(new TypeFilterAttribute(typeof(EnhancedActivityLogAttribute)));
             });
 
             var app = builder.Build();
@@ -30,6 +30,7 @@ namespace SimpleBlog.Presentation
             }
 
             app.UseDataSeed();
+            app.UseActivityLogging();
 
             app.UseHttpsRedirection();
             app.UseRouting();
