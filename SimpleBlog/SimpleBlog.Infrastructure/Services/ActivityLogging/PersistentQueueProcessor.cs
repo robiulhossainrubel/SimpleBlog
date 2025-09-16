@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Hosting;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Services;
+using SimpleBlog.Infrastructure.Services.ActivityLogging;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.ActivityLogging
 {
     public class PersistentQueueProcessor : BackgroundService
     {

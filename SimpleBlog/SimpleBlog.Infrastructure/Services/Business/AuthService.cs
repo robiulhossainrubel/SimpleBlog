@@ -3,7 +3,7 @@ using SimpleBlog.Application.DTOs;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.Business
 {
     public class AuthService : IAuthService
     {

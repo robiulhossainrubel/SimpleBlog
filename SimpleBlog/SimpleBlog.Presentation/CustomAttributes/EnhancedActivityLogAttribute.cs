@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SimpleBlog.Domain.Entities;
-using SimpleBlog.Infrastructure.Services;
+using SimpleBlog.Infrastructure.Services.ActivityLogging;
 
 namespace SimpleBlog.Presentation.CustomAttributes
 {

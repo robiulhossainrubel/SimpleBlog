@@ -3,7 +3,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Hosting;
 using SimpleBlog.Domain.Entities;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.ActivityLogging
 {
     public class PersistentActivityQueue : IHostedService
     {

@@ -5,7 +5,7 @@ using ClickHouse.Client.ADO.Parameters;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.ActivityLogging
 {
     public class UserActivityService : IUserActivityService
     {

@@ -7,7 +7,8 @@ using Microsoft.Extensions.Hosting;
 using SimpleBlog.Application.Interface;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
-using SimpleBlog.Infrastructure.Services;
+using SimpleBlog.Infrastructure.Services.ActivityLogging;
+using SimpleBlog.Infrastructure.Services.Business;
 
 namespace SimpleBlog.Infrastructure.DI
 {

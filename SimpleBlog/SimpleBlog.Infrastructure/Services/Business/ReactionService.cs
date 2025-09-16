@@ -2,7 +2,7 @@
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Infrastructure.Data;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.Business
 {
     public class ReactionService : IReactionService
     {

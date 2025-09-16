@@ -3,7 +3,7 @@ using System.Text.Json;
 using SimpleBlog.Domain.Entities;
 using SimpleBlog.Application.Interface;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.ActivityLogging
 {
     public class KafkaActivityConsumer : IDisposable
     {

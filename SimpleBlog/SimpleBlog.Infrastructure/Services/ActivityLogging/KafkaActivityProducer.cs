@@ -2,7 +2,7 @@ using Confluent.Kafka;
 using System.Text.Json;
 using SimpleBlog.Domain.Entities;
 
-namespace SimpleBlog.Infrastructure.Services
+namespace SimpleBlog.Infrastructure.Services.ActivityLogging
 {
     public class KafkaActivityProducer : IDisposable
     {
